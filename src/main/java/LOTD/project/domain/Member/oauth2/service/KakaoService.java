@@ -17,10 +17,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
@@ -139,7 +135,7 @@ public class KakaoService {
                     .memberId(kakaoId)
                     .nickName("kakao_nickname")
                     .email(email)
-                    .role(Role.MEMBER)
+                    .role(Role.ROLE_MEMBER)
                     .socialType(SocialType.KAKAO)
                     .build();
 

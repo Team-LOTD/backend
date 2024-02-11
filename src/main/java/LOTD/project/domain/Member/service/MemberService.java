@@ -60,7 +60,7 @@ public class MemberService {
                 .nickName(memberSignUpRequest.getNickName())
                 .email(memberSignUpRequest.getEmail())
                 .age(memberSignUpRequest.getAge())
-                .role(Role.MEMBER)
+                .role(Role.ROLE_MEMBER)
                 .build();
 
         // 패스워드 암호화
