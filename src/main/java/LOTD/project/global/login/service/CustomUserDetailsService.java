@@ -1,6 +1,7 @@
 package LOTD.project.global.login.service;
 
 import LOTD.project.domain.Member.Member;
+import LOTD.project.domain.Member.Role;
 import LOTD.project.domain.Member.repository.MemberRepository;
 import LOTD.project.global.exception.BaseException;
 import LOTD.project.global.exception.ExceptionCode;
@@ -37,8 +38,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new BaseException(ExceptionCode.NOT_EXIST_MEMBER);
         }
 
-        List<GrantedAuthority> authority = List.of(new SimpleGrantedAuthority(member.getRole().getKey()));
-        System.out.println("user13");
+        List<GrantedAuthority> authority = List.of(new SimpleGrantedAuthority(member.getRole().getKey())); // 역할 넣어주기
+
         return org.springframework.security.core.userdetails.User.builder()
                 .username(member.getMemberId())
                 .password(member.getPassword())

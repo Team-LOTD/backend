@@ -19,27 +19,27 @@ public class ProfileController {
     private final ProfileService profileService;
     private final BaseResponse baseResponse;
 
-    @PutMapping("/members/{id}/updateNickname")
-    public ResponseEntity<?> updateMemberNickName(@RequestBody MemberUpdateNickNameRequest memberUpdateNickNameRequest, @PathVariable("id") Long id) {
+    @PutMapping("/members/updateNickname")
+    public ResponseEntity<?> updateMemberNickName(@RequestBody MemberUpdateNickNameRequest memberUpdateNickNameRequest, @RequestParam(name = "id") Long id) {
         profileService.updateMemberNickName(memberUpdateNickNameRequest, id);
         return baseResponse.success(HttpStatus.OK,"닉네임이 정상적으로 수정되었습니다.");
     }
 
-    @PutMapping("/members/{id}/updateAge")
-    public ResponseEntity<?> updateMemberAge(@RequestBody MemberUpdateAgeRequest memberUpdateAgeRequest, @PathVariable("id") Long id) {
+    @PutMapping("/members/updateAge")
+    public ResponseEntity<?> updateMemberAge(@RequestBody MemberUpdateAgeRequest memberUpdateAgeRequest, @RequestParam(name = "id") Long id) {
         profileService.updateMemberAge(memberUpdateAgeRequest, id);
         return baseResponse.success(HttpStatus.OK,"나이가 정상적으로 수정되었습니다.");
     }
 
-    @PutMapping("/members/{id}/updateEmail")
-    public ResponseEntity<?> updateMemberEmail(@RequestBody MemberUpdateEmailRequest memberUpdateEmailRequest, @PathVariable("id") Long id) {
+    @PutMapping("/members/updateEmail")
+    public ResponseEntity<?> updateMemberEmail(@RequestBody MemberUpdateEmailRequest memberUpdateEmailRequest, @RequestParam(name = "id") Long id) {
         profileService.updateMemberEmail(memberUpdateEmailRequest, id);
         return baseResponse.success(HttpStatus.OK,"이메일이 정상적으로 수정되었습니다.");
     }
 
 
-    @PutMapping("/members/{id}/changePassword")
-    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest, @PathVariable("id") Long id) {
+    @PutMapping("/members/changePassword")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest, @RequestParam(name = "id") Long id) {
         String asIsPassword = changePasswordRequest.getAsIsPassword();
         String toBePassword = changePasswordRequest.getToBePassword();
         String confirmToBePassword = changePasswordRequest.getConfirmToBePassword();
@@ -52,14 +52,14 @@ public class ProfileController {
         return baseResponse.success(HttpStatus.OK,"비밀번호가 변경되었습니다.");
     }
 
-    @DeleteMapping("/members/{id}/delete")
-    public ResponseEntity<?> delMember(@RequestBody DeleteMemberRequest deleteMemberRequest, @PathVariable("id") Long id) {
+    @DeleteMapping("/members/delete")
+    public ResponseEntity<?> delMember(@RequestBody DeleteMemberRequest deleteMemberRequest, @RequestParam(name = "id") Long id) {
         profileService.delMember(deleteMemberRequest.getPassword(),id);
         return baseResponse.success(HttpStatus.OK,"탈퇴 완료되었습니다.");
     }
 
-    @GetMapping("members/{id}")
-    public ResponseEntity<?> MyPage(@PathVariable("id") Long id) {
+    @GetMapping("/members")
+    public ResponseEntity<?> MyPage(@RequestParam(name = "id") Long id) {
         MyPageResponse myPageResponse = profileService.myPage(id);
         return baseResponse.success(HttpStatus.OK,myPageResponse,"내 정보 조회 완료");
     }

@@ -135,7 +135,7 @@ public class KakaoService {
                     .memberId(kakaoId)
                     .nickName("kakao_nickname")
                     .email(email)
-                    .role(Role.ROLE_MEMBER)
+                    .role(Role.MEMBER)
                     .socialType(SocialType.KAKAO)
                     .build();
 
