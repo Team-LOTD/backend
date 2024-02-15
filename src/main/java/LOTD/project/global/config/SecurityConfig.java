@@ -25,6 +25,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import java.util.List;
+
 
 @Configuration
 @EnableWebSecurity
@@ -36,8 +38,9 @@ public class SecurityConfig {
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     private static final String[] PERMIT_URL = {
-            "/signUp","/login","/logout","/memberId/check", "/nickname/check","/oauth/**"
+            "/signUp", "/login", "/logout", "/memberId/check", "/nickname/check", "/oauth/**"
     };
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -79,5 +82,20 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        final CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("*"));
+        configuration.addAllowedHeader("*");
+        configuration.addAllowedMethod("*");
+        configuration.setAllowCredentials(true);
+
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+
+
+    }
 
 }
