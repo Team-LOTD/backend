@@ -23,7 +23,7 @@ public class OAuthController {
     /**
      * 카카오 로그인
      */
-    @PostMapping("/kakao/login")
+    @GetMapping("/kakao/login")
     public ResponseEntity<?> kakaoLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
 
         LoginResponse kakaoLoginResponse = kakaoService.kakaoLogin(code,response);
