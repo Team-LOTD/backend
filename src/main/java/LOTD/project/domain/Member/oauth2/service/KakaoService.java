@@ -89,7 +89,6 @@ public class KakaoService {
 
         String tokenType = jsonNode.get("token_type").asText();
         String accessToken = jsonNode.get("access_token").asText();
-        String idToken = jsonNode.get("id_token").asText();
         int expiresIn = jsonNode.get("expires_in").asInt();
         String refreshToken = jsonNode.get("refresh_token").asText();
         int refreshTokenExpiresIn = jsonNode.get("refresh_token_expires_in").asInt();
@@ -98,7 +97,6 @@ public class KakaoService {
         KakaoToken kakaoToken = KakaoToken.builder()
                 .tokenType(tokenType)
                 .accessToken(accessToken)
-                .idToken(idToken)
                 .expiresIn(expiresIn)
                 .refreshToken(refreshToken)
                 .refreshTokenExpiresIn(refreshTokenExpiresIn)
