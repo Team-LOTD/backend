@@ -47,13 +47,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
              * RT로 AT 재발급 및 API 요청 처리
              */
             String refreshToken = jwtService.getRefreshToken(accessToken);
-            if (refreshToken != null && jwtService.validateToken(refreshToken,request)){
-                String memberId = jwtService.getMemberId(refreshToken);
-                LoginResponse loginresponse = jwtService.createJwtToken(memberId);
+            if (refreshToken != null){
+                if (jwtService.validateToken(refreshToken,request)) {
+                    String memberId = jwtService.getMemberId(refreshToken);
+                    LoginResponse loginresponse = jwtService.createJwtToken(memberId);
 
-                jwtService.setHeaderAccessToken(response,loginresponse.getAccessToken());
-                jwtService.setHeaderRefreshToken(response,loginresponse.getRefreshToken());
-                this.setAuthentication(loginresponse.getAccessToken());
+                    jwtService.setHeaderAccessToken(response, loginresponse.getAccessToken());
+                    jwtService.setHeaderRefreshToken(response, loginresponse.getRefreshToken());
+                    this.setAuthentication(loginresponse.getAccessToken());
+                }
             }
             /**
              * 로그인이 필요하지 않은 요청들 . ex) 닉네임, 아이디 중복 체크 여부 등
