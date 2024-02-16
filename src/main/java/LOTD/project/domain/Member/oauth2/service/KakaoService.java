@@ -125,8 +125,8 @@ public class KakaoService {
         if (kakaoMember == null) {
             String email = null;
 
-            if (jsonNode.get("kakao_account").get("email").asText() != null) {
-                email = jsonNode.get("kakao_account").get("email").asText();
+            if (jsonNode.get("kakao_account").get("account_email") != null) {
+                email = jsonNode.get("kakao_account").get("account_email").asText();
 
             }
 
