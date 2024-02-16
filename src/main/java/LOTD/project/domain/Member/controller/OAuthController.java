@@ -25,7 +25,7 @@ public class OAuthController {
      */
     @GetMapping("/kakao/login")
     public ResponseEntity<?> kakaoLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
-
+        System.out.println("code" + code);
         LoginResponse kakaoLoginResponse = kakaoService.kakaoLogin(code,response);
         return baseResponse.success(HttpStatus.OK,kakaoLoginResponse,"로그인에 성공했습니다.");
     }
