@@ -109,7 +109,7 @@ public class JwtService {
         } catch (SecurityException | MalformedJwtException | io.jsonwebtoken.security.SignatureException e) {
             log.info("Invalid JWT Token", e);
             request.setAttribute("exception",new BaseException(ExceptionCode.NOT_VALID_TOKEN));
-        } catch (ExpiredJwtException) {
+        } catch (ExpiredJwtException e) {
             log.info("Expired JWT Token", e);
             request.setAttribute("exception", new BaseException(ExceptionCode.ACCESS_TOKEN_EXPIRED));
         } catch (UnsupportedJwtException e) {
@@ -118,7 +118,7 @@ public class JwtService {
         } catch (IllegalArgumentException e) {
             log.info("JWT claims string is empty.", e);
             request.setAttribute("exception",new BaseException(ExceptionCode.NOT_ACCESS_TOKEN_TYPE));
-        } 
+        }
         return false;
     }
 
