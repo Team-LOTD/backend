@@ -2,13 +2,13 @@ package LOTD.project.domain.Member.controller;
 
 import LOTD.project.domain.Member.dto.response.LoginResponse;
 import LOTD.project.domain.Member.oauth2.service.KakaoService;
+import LOTD.project.global.exception.BaseException;
 import LOTD.project.global.response.BaseResponse;
+import LOTD.project.global.response.ExceptionResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -36,5 +36,14 @@ public class OAuthController {
 
 
 
+
+
+
+
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<ExceptionResponse> ExceptionHandle(BaseException e) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(e.getExceptionCode());
+        return ResponseEntity.status(exceptionResponse.getStatus()).body(exceptionResponse);
+    }
 
 }
