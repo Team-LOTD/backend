@@ -26,14 +26,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
 
-
-        System.out.println("user11");
-
         Member member = memberRepository.findByMemberId(memberId)
                 .orElse(null);
 
         if (member == null) {
-            System.out.println("user12");
             request.setAttribute("exception",new BaseException(ExceptionCode.NOT_EXIST_MEMBER));
             throw new BaseException(ExceptionCode.NOT_EXIST_MEMBER);
         }

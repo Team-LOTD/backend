@@ -13,5 +13,4 @@ public class MyPageResponse {
     private String nickName;
     private int age;
 
-
 }
