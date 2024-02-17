@@ -39,7 +39,7 @@ public class SecurityConfig {
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     private static final String[] PERMIT_URL = {
-            "/signUp", "/login", "/logout", "/memberId/check", "/nickname/check", "/oauth/**"
+            "/signup", "/login", "/logout", "/memberId/check", "/nickname/check", "/oauth/**"
     };
 
     @Bean

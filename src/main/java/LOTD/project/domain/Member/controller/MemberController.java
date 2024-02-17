@@ -7,6 +7,7 @@ import LOTD.project.domain.Member.dto.response.LoginResponse;
 import LOTD.project.domain.Member.dto.response.MemberSignUpResponse;
 import LOTD.project.domain.Member.service.MemberService;
 import LOTD.project.global.exception.BaseException;
+import LOTD.project.global.exception.ExceptionCode;
 import LOTD.project.global.jwt.JwtService;
 import LOTD.project.global.response.BaseResponse;
 import LOTD.project.global.response.ExceptionResponse;
@@ -48,9 +49,9 @@ public class MemberController {
      * 회원가입 시 닉네임 중복 여부 판단
      */
     @GetMapping("/nickname/check")
-    public ResponseEntity<?> checkNickname(@RequestParam String nickName) {
+    public ResponseEntity<?> checkNickname(@RequestParam String nickname) {
         boolean isDuplicated = false;
-        isDuplicated = memberService.checkNickname(nickName);
+        isDuplicated = memberService.checkNickname(nickname);
         if (isDuplicated == false) {
             return baseResponse.fail(HttpStatus.BAD_REQUEST,"이미 존재하는 닉네임입니다. 다른 닉네임을 입력 해주세요");
         }
@@ -61,7 +62,7 @@ public class MemberController {
 
 
 
-    @PostMapping("/signUp")
+    @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody @Valid MemberSignUpRequest memberSignUpRequest, BindingResult bindingResult) throws Exception {
 
         try {
@@ -74,22 +75,27 @@ public class MemberController {
                 return baseResponse.fail(HttpStatus.BAD_REQUEST, "입력 항목을 올바르게 입력해주세요.");
             }
             if (!memberSignUpRequest.getPassword().equals(memberSignUpRequest.getConfirmPassword())) {
-
-                return baseResponse.fail(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다.");
+                throw new BaseException(ExceptionCode.NOT_SAME_PASSWORD);
 
             }
             Member member = memberService.signUp(memberSignUpRequest);
 
             return baseResponse.success(HttpStatus.OK, MemberSignUpResponse.of(member), "회원가입을 환영합니다!");
-            
+
+        } catch (BaseException e) {
+            throw new BaseException(ExceptionCode.EXIST_MEMBER_ID);
         } catch (Exception e) {;
             return baseResponse.error(e.getMessage());
         }
-
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid MemberLoginRequest memberLoginRequest) {
+    public ResponseEntity<?> login(@RequestBody @Valid MemberLoginRequest memberLoginRequest, BindingResult bindingResult) {
+
+        // 유효성 검사를 통과하지 못한 경우 바로 에러 메시지 반환
+        if (bindingResult.hasErrors()) {
+            return baseResponse.fail(HttpStatus.BAD_REQUEST, "아이디 또는 비밀번호가 형식이 맞지 않습니다.");
+        }
 
         Member member = memberService.findMember(memberLoginRequest.getMemberId());
         if (member != null) {
@@ -109,11 +115,9 @@ public class MemberController {
 
     @GetMapping("/logout")
     public ResponseEntity<?> logout(HttpServletRequest request) throws Exception {
-
         String accessToken = jwtService.getAccessToken(request);
         memberService.logout(accessToken);
         return baseResponse.success(HttpStatus.OK,"로그아웃 되었습니다.");
-
     }
 
     @ResponseBody

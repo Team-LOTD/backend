@@ -18,9 +18,10 @@ public enum ExceptionCode {
     NOT_EXISTS_AUTHORIZATION(HttpStatus.UNAUTHORIZED, "AUTH_01", "Authorization Header가 비어있습니다."),
     NOT_VALID_BEARER_GRANT_TYPE(HttpStatus.UNAUTHORIZED, "AUTH_02", "인증 타입이 Bearer 타입이 아닙니다."),
     NOT_LOGIN(HttpStatus.BAD_REQUEST, "MEMBER_01", "로그인이 필요합니다."),
-    WRONG_PASSOWRD(HttpStatus.BAD_REQUEST, "MEMBER_02", "비밀번호가 틀렸습니다."),
+    WRONG_PASSWORD(HttpStatus.BAD_REQUEST, "MEMBER_02", "비밀번호가 틀렸습니다."),
     NOT_SAME_PASSWORD(HttpStatus.BAD_REQUEST, "MEMBER_03", "입력 비밀번호와 확인 비밀번호가 일치하지 않습니다."),
-    NOT_EXIST_MEMBER(HttpStatus.BAD_REQUEST, "MEMBER_04", "존재하지 않는 회원입니다.");
+    NOT_EXIST_MEMBER(HttpStatus.BAD_REQUEST, "MEMBER_04", "존재하지 않는 회원입니다."),
+    EXIST_MEMBER_ID(HttpStatus.BAD_REQUEST, "MEMBER_05", "이미 존재하는 아이디입니다.");
 
     ExceptionCode(HttpStatus httpStatus, String errorCode, String message) {
         this.httpStatus = httpStatus;

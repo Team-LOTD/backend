@@ -63,7 +63,7 @@ public class ProfileService {
 
         if (member != null) {
             if (!member.matchPassword(passwordEncoder,asIsPassword)){
-                throw new BaseException(ExceptionCode.WRONG_PASSOWRD);
+                throw new BaseException(ExceptionCode.WRONG_PASSWORD);
             }
             member.changePassword(passwordEncoder,toBePassword);
         }
@@ -78,7 +78,7 @@ public class ProfileService {
 
         if (member != null) {
             if (!member.matchPassword(passwordEncoder, checkPassword)) {
-                throw new BaseException(ExceptionCode.WRONG_PASSOWRD);
+                throw new BaseException(ExceptionCode.WRONG_PASSWORD);
             }
             memberRepository.delete(member);
         }

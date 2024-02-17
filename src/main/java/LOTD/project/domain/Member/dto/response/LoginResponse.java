@@ -1,5 +1,6 @@
 package LOTD.project.domain.Member.dto.response;
 
+import LOTD.project.domain.Member.oauth2.SocialType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +18,6 @@ public class LoginResponse {
         private String refreshToken;
         private Long accessTokenExpiresIn;
         private Long refreshTokenExpiresIn;
-
+        private SocialType socialType;
 
 }

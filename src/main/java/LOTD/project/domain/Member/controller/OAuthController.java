@@ -20,12 +20,12 @@ public class OAuthController {
 
     private final BaseResponse baseResponse;
     private final KakaoService kakaoService;
+
     /**
-     * 카카오 로그인
+     * 카카오 로그인 (프론트단으로부터 인가코드 전달 받음)
      */
     @GetMapping("/kakao/login")
     public ResponseEntity<?> kakaoLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
-        System.out.println("code" + code);
         LoginResponse kakaoLoginResponse = kakaoService.kakaoLogin(code,response);
         return baseResponse.success(HttpStatus.OK,kakaoLoginResponse,"로그인에 성공했습니다.");
     }

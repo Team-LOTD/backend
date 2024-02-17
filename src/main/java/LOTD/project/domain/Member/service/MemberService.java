@@ -7,6 +7,8 @@ import LOTD.project.domain.Member.dto.request.MemberLoginRequest;
 import LOTD.project.domain.Member.dto.request.MemberSignUpRequest;
 import LOTD.project.domain.Member.dto.response.LoginResponse;
 import LOTD.project.domain.Member.repository.MemberRepository;
+import LOTD.project.global.exception.BaseException;
+import LOTD.project.global.exception.ExceptionCode;
 import LOTD.project.global.jwt.JwtService;
 import LOTD.project.global.login.service.redis.RedisService;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +25,6 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final RedisService redisService;
-
-
 
     public boolean checkMemberId(String memberId) {
         if (memberRepository.findByMemberId(memberId).isPresent()){
@@ -54,6 +54,10 @@ public class MemberService {
     @Transactional
     public Member signUp(MemberSignUpRequest memberSignUpRequest) throws Exception {
 
+        if (memberRepository.findByMemberId(memberSignUpRequest.getMemberId()).isPresent()){
+            throw new BaseException(ExceptionCode.EXIST_MEMBER_ID);
+        }
+
         Member member = Member.builder()
                 .memberId(memberSignUpRequest.getMemberId())
                 .password(memberSignUpRequest.getPassword())
@@ -61,6 +65,7 @@ public class MemberService {
                 .email(memberSignUpRequest.getEmail())
                 .age(memberSignUpRequest.getAge())
                 .role(Role.MEMBER)
+                .socialType(null)
                 .build();
 
         // 패스워드 암호화
@@ -90,6 +95,7 @@ public class MemberService {
                        .accessTokenExpiresIn(loginResponse.getAccessTokenExpiresIn())
                        .refreshToken(loginResponse.getRefreshToken())
                        .refreshTokenExpiresIn(loginResponse.getRefreshTokenExpiresIn())
+                       .socialType(null) // 자체 로그인이므로 소셜 타입은 null
                        .build();
             }
     }

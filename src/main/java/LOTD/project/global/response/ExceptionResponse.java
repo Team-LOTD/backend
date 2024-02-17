@@ -10,12 +10,12 @@ import org.springframework.http.HttpStatus;
 public class ExceptionResponse {
 
     private final HttpStatus status;
-    private final String code;
+    private final String errorCode;
     private final String message;
 
     public ExceptionResponse(ExceptionCode exceptionCode) {
         this.status = exceptionCode.getHttpStatus();
-        this.code = exceptionCode.getErrorCode();
+        this.errorCode = exceptionCode.getErrorCode();
         this.message = exceptionCode.getMessage();
     }
 

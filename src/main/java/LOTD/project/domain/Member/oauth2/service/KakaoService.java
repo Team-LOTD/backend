@@ -56,8 +56,14 @@ public class KakaoService {
         jwtService.setHeaderAccessToken(response,loginResponse.getAccessToken());
         jwtService.setHeaderRefreshToken(response,loginResponse.getRefreshToken());
 
-        return loginResponse;
-
+        return LoginResponse.builder()
+                .id(member.getId())
+                .grantType(loginResponse.getGrantType())
+                .accessToken(loginResponse.getAccessToken())
+                .accessTokenExpiresIn(loginResponse.getAccessTokenExpiresIn())
+                .refreshToken(loginResponse.getRefreshToken())
+                .refreshTokenExpiresIn(loginResponse.getRefreshTokenExpiresIn())
+                .build();
     }
 
      private KakaoToken getKakaoToken(String code) throws JsonProcessingException {
@@ -118,7 +124,6 @@ public class KakaoService {
 
         // DB 에 중복된 Kakao Id 가 있는지 확인
         String kakaoId = String.valueOf(jsonNode.get("id").asLong()) + "@kakao";
-        System.out.println(kakaoId);
         Member kakaoMember = memberRepository.findByMemberId(kakaoId).orElse(null);
 
 
