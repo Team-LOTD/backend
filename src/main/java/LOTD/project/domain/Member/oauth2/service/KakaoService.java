@@ -4,7 +4,6 @@ import LOTD.project.domain.Member.Member;
 import LOTD.project.domain.Member.Role;
 import LOTD.project.domain.Member.dto.response.LoginResponse;
 import LOTD.project.domain.Member.oauth2.SocialType;
-import LOTD.project.domain.Member.oauth2.dto.response.KakaoMember;
 import LOTD.project.domain.Member.oauth2.dto.response.KakaoToken;
 import LOTD.project.domain.Member.repository.MemberRepository;
 import LOTD.project.global.jwt.JwtService;
