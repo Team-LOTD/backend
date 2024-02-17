@@ -15,22 +15,27 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Arrays;
 
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-    private final JwtService jwtService;
-    private static final String LOGIN_URL = "/login"; // "/login"으로 들어오는 요청은 Filter 작동 X
-    private static final String SIGNUP_URL = "/signUp"; // "/login"으로 들어오는 요청은 Filter 작동 X
 
+    private final JwtService jwtService;
+
+    /**
+     * 필터 거치지 않는 URL 설정 (로그인이 필요 없는 URL)
+     */
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String[] excludePath = {"/signup", "/login", "/logout", "/memberId/check", "/nickname/check", "/oauth/**"};
+        // 제외할 url 설정
+        String path = request.getRequestURI();
+        return Arrays.stream(excludePath).anyMatch(path::startsWith);
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-
-        if (request.getRequestURI().equals(LOGIN_URL) || request.getRequestURI().equals(SIGNUP_URL) ) {
-            filterChain.doFilter(request, response); // "/login, signUp" 요청이 들어오면, 다음 필터 호출
-            return; // return으로 이후 현재 필터 진행 막아줌
-        }
 
         String accessToken = jwtService.getAccessToken(request);
 
@@ -57,12 +62,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     this.setAuthentication(loginresponse.getAccessToken());
                 }
             }
-            /**
-             * 로그인이 필요하지 않은 요청들 . ex) 닉네임, 아이디 중복 체크 여부 등
-             */
-            else{
 
-                //request.setAttribute("exception",new BaseException(ExceptionCode.REFRESH_TOKEN_EXPIRED)); // REFRESH TOKEN 만료
+            else{
+                request.setAttribute("exception",new BaseException(ExceptionCode.NOT_EXISTS_TOKEN));// 인증 토큰이 없음
             }
             
         }

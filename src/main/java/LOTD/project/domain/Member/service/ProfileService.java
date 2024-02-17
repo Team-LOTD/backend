@@ -89,7 +89,7 @@ public class ProfileService {
         Member member = memberRepository.findById(id).orElse(null);
 
         if (member == null) {
-            throw new BaseException(ExceptionCode.NOT_LOGIN);
+            throw new BaseException(ExceptionCode.NOT_EXIST_MEMBER);
         }
         else {
             return MyPageResponse.builder()

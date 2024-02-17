@@ -113,7 +113,7 @@ public class JwtService {
             request.setAttribute("exception",new BaseException(ExceptionCode.NOT_VALID_TOKEN));
         } catch (ExpiredJwtException e) {
             log.info("Expired JWT Token", e);
-            request.setAttribute("exception", new BaseException(ExceptionCode.ACCESS_TOKEN_EXPIRED));
+            request.setAttribute("exception", new BaseException(ExceptionCode.TOKEN_EXPIRED));
         } catch (UnsupportedJwtException e) {
             log.info("Unsupported JWT Token", e);
             request.setAttribute("exception",new BaseException(ExceptionCode.UNSUPPORTED_TOKEN));

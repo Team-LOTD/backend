@@ -38,7 +38,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
         // 토큰 만료의 경우 다른 응답
         if (baseException.getExceptionCode().getErrorCode().equals("TOKEN_01")) {
-            setResponse(response,ExceptionCode.ACCESS_TOKEN_EXPIRED);
+            setResponse(response,ExceptionCode.TOKEN_EXPIRED);
             return;
         }
 
@@ -63,15 +63,11 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
             return;
         }
 
-        if (baseException.getExceptionCode().getErrorCode().equals("TOKEN_06")) {
-            setResponse(response,ExceptionCode.REFRESH_TOKEN_EXPIRED);
+        if (baseException.getExceptionCode().getErrorCode().equals("AUTH_01")) {
+            setResponse(response,ExceptionCode.NOT_EXISTS_TOKEN);
             return;
         }
 
-        if (baseException.getExceptionCode().getErrorCode().equals("AUTH_01")) {
-            setResponse(response,ExceptionCode.NOT_EXISTS_AUTHORIZATION);
-            return;
-        }
 
         if (baseException.getExceptionCode().getErrorCode().equals("MEMBER_04")) {
             setResponse(response,ExceptionCode.NOT_EXIST_MEMBER);
