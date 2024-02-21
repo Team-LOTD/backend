@@ -6,6 +6,7 @@ import LOTD.project.global.exception.CustomAuthenticationEntryPoint;
 import LOTD.project.global.jwt.JwtAuthenticationFilter;
 import LOTD.project.global.jwt.JwtService;
 
+import LOTD.project.global.login.service.redis.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

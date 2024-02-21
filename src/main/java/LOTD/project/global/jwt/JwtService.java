@@ -11,10 +11,12 @@ import LOTD.project.global.login.service.redis.RedisService;
 import com.fasterxml.jackson.databind.introspect.AccessorNamingStrategy;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.io.DecodingException;
 import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +26,7 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Key;
+import java.time.Duration;
 import java.util.Date;
 
 @Slf4j
@@ -111,27 +114,39 @@ public class JwtService {
         } catch (SecurityException | MalformedJwtException | io.jsonwebtoken.security.SignatureException e) {
             log.info("Invalid JWT Token", e);
             request.setAttribute("exception",new BaseException(ExceptionCode.NOT_VALID_TOKEN));
+            return false;
         } catch (ExpiredJwtException e) {
             log.info("Expired JWT Token", e);
+            redisService.deleteAccessTokenInBlackList(token);
             request.setAttribute("exception", new BaseException(ExceptionCode.TOKEN_EXPIRED));
+            System.out.println("만료에러");
+            return false;
         } catch (UnsupportedJwtException e) {
             log.info("Unsupported JWT Token", e);
             request.setAttribute("exception",new BaseException(ExceptionCode.UNSUPPORTED_TOKEN));
-        } catch (IllegalArgumentException e) {
+            return false;
+        } catch (IllegalArgumentException | DecodingException e) {
             log.info("JWT claims string is empty.", e);
             request.setAttribute("exception",new BaseException(ExceptionCode.NOT_ACCESS_TOKEN_TYPE));
+            return false;
+        }
+    }
+
+    public boolean checkAccessTokenInBlackList(HttpServletRequest request, String accessToken) {
+        if (redisService.isTokenInBlacklist(accessToken,getExpiration(accessToken))) {
+            request.setAttribute("exception", new BaseException(ExceptionCode.BLACKLISTED_ACCESS_TOKEN));
+            throw new BaseException(ExceptionCode.BLACKLISTED_ACCESS_TOKEN);
         }
         return false;
     }
 
-
     // accessToken
-    private Claims parseClaims(String accessToken) {
+    private Claims parseClaims(String token) {
         try {
             return Jwts.parserBuilder()
                     .setSigningKey(key)
                     .build()
-                    .parseClaimsJws(accessToken)
+                    .parseClaimsJws(token)
                     .getBody();
         } catch (ExpiredJwtException e) {
             return e.getClaims();
@@ -140,25 +155,39 @@ public class JwtService {
 
     public String getAccessToken(HttpServletRequest request) {
         String authorizationHeader = request.getHeader("Authorization");
-        if(authorizationHeader != null){
-            String accessToken = authorizationHeader.split(" ")[1]; // accesstoken 추출
 
-            if (redisService.isTokenInBlacklist(accessToken)) {
-                request.setAttribute("exception", new BaseException(ExceptionCode.BLACKLISTED_ACCESS_TOKEN));
-                throw new BaseException(ExceptionCode.BLACKLISTED_ACCESS_TOKEN);
+        if(authorizationHeader != null && !authorizationHeader.equals("")){
+            if (authorizationHeader.startsWith("Bearer ") && authorizationHeader.length() > 7) {
+                String accessToken = authorizationHeader.substring(7); // accesstoken 추출
+                return accessToken;
             }
-
-            return accessToken;
         }
-        return null;
+        return null; // 헤더 비어있으면 null 리턴
     }
 
-    public String getRefreshToken(String accessToken) {
-        if (accessToken != null) {
-            Claims claims = parseClaims(accessToken);
+
+    public String getRefreshToken(HttpServletRequest request) {
+        String authorizationHeader = request.getHeader("Authorization-refresh");
+
+        if(authorizationHeader != null && !authorizationHeader.equals("")){
+            if (authorizationHeader.startsWith("Bearer ") && authorizationHeader.length() > 7) {
+                String refreshToken = authorizationHeader.substring(7); // refresh 추출
+                return refreshToken;
+            }
+            else {
+                request.setAttribute("exception",new BaseException(ExceptionCode.ALL_TOKEN_EXPIRED));// 인증 토큰이 없음
+                throw new BaseException(ExceptionCode.ALL_TOKEN_EXPIRED);
+            }
+        }
+        return null; // 헤더 비어있으면 null 리턴
+    }
+
+    public String getRedisRefreshToken(String refreshToken) {
+        if (refreshToken != null) {
+            Claims claims = parseClaims(refreshToken);
             String memberId = claims.get("memberId", String.class);
-            String refreshToken = redisService.getRefreshToken(memberId);
-            return refreshToken;
+            String redisRefreshToken = redisService.getRefreshToken(memberId);
+            return redisRefreshToken;
         }
         return null;
     }
@@ -176,6 +205,19 @@ public class JwtService {
                 .parseClaimsJws(refreshToken)
                 .getBody();
         return claims.get("memberId", String.class);
+    }
+
+    public Long getExpiration(String accessToken) {
+        // accessToken 남은 유효시간
+        Date expiration = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody().getExpiration();
+        // 현재 시간
+        Long now = new Date().getTime();
+        System.out.println(expiration.getTime() - now);
+        return (expiration.getTime() - now);
+    }
+
+    public void setRedisRefreshToken(String memberId, String refreshToken) {
+        redisService.setRefreshToken(memberId,refreshToken);
     }
 
 

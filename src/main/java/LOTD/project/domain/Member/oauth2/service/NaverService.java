@@ -1,12 +1,13 @@
 package LOTD.project.domain.Member.oauth2.service;
 
+
 import LOTD.project.domain.Member.Member;
 import LOTD.project.domain.Member.Role;
 import LOTD.project.domain.Member.dto.response.LoginResponse;
 import LOTD.project.domain.Member.oauth2.SocialType;
 import LOTD.project.domain.Member.oauth2.dto.request.SocialSignUpRequest;
-import LOTD.project.domain.Member.oauth2.dto.response.KakaoInfo;
-import LOTD.project.domain.Member.oauth2.dto.response.KakaoToken;
+import LOTD.project.domain.Member.oauth2.dto.response.NaverInfo;
+import LOTD.project.domain.Member.oauth2.dto.response.NaverToken;
 import LOTD.project.domain.Member.repository.MemberRepository;
 import LOTD.project.global.jwt.JwtService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -26,16 +27,16 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 
+@Service
 @RequiredArgsConstructor
 @Transactional
-@Service
-public class KakaoService {
+public class NaverService {
 
-    @Value("${oauth.kakao.client_id}")
+    @Value("${oauth.naver.client_id}")
     String clientId;
-    @Value("${oauth.kakao.redirect_uri}")
+    @Value("${oauth.naver.redirect_uri}")
     String redirectUri;
-    @Value("${oauth.kakao.client_secret}")
+    @Value("${oauth.naver.client_secret}")
     String clientSecret;
 
 
@@ -50,14 +51,14 @@ public class KakaoService {
      * @return
      * @throws JsonProcessingException
      */
-    public LoginResponse kakaoSignUpAndLogin(SocialSignUpRequest socialSignUpRequest, HttpServletResponse response) {
+    public LoginResponse naverSignUpAndLogin(SocialSignUpRequest socialSignUpRequest, HttpServletResponse response) {
 
         Member member = Member.builder()
                 .memberId(socialSignUpRequest.getSocialMemberId())
                 .nickName(socialSignUpRequest.getNickName())
                 .email(socialSignUpRequest.getEmail())
                 .role(Role.MEMBER)
-                .socialType(SocialType.KAKAO)
+                .socialType(SocialType.NAVER)
                 .build();
 
         // 회원 저장
@@ -77,7 +78,7 @@ public class KakaoService {
                 .accessTokenExpiresIn(loginResponse.getAccessTokenExpiresIn())
                 .refreshToken(loginResponse.getRefreshToken())
                 .refreshTokenExpiresIn(loginResponse.getRefreshTokenExpiresIn())
-                .socialType(SocialType.KAKAO)
+                .socialType(SocialType.NAVER)
                 .build();
     }
 
@@ -90,11 +91,11 @@ public class KakaoService {
      */
 
 
-    public LoginResponse kakaoLogin(String code, HttpServletResponse response) throws JsonProcessingException {
+    public LoginResponse naverLogin(String code, HttpServletResponse response) throws JsonProcessingException {
 
-        KakaoToken kakaoToken = getKakaoToken(code);
+        NaverToken naverToken = getNaverToken(code);
 
-        String accessToken = kakaoToken.getAccessToken();
+        String accessToken = naverToken.getAccessToken();
 
         Member member = getMember(accessToken);
 
@@ -115,42 +116,42 @@ public class KakaoService {
                     .accessTokenExpiresIn(loginResponse.getAccessTokenExpiresIn())
                     .refreshToken(loginResponse.getRefreshToken())
                     .refreshTokenExpiresIn(loginResponse.getRefreshTokenExpiresIn())
-                    .socialType(SocialType.KAKAO)
+                    .socialType(SocialType.NAVER)
                     .build();
         }
     }
 
 
-    public KakaoInfo getMemberInfoToSend(String accessToken) throws JsonProcessingException {
-        JsonNode jsonNode = getKakaoInfo(accessToken);
+    public NaverInfo getMemberInfoToSend(String accessToken) throws JsonProcessingException {
+        JsonNode jsonNode = getNaverInfo(accessToken);
 
-        // DB 에 중복된 Kakao Id 가 있는지 확인
-        String kakaoId = String.valueOf(jsonNode.get("id").asLong()) + "@kakao";
+        // DB 에 중복된 Naver Id 가 있는지 확인
+        String naverId = String.valueOf(jsonNode.get("response").get("id").asLong()) + "@n";
 
         String email = null;
-        if (jsonNode.get("kakao_account").get("account_email") != null) {
-            email = jsonNode.get("kakao_account").get("account_email").asText();
-            }
-        return KakaoInfo.builder()
-                .kakaoMemberId(kakaoId)
+        if (jsonNode.get("response").get("email") != null) {
+            email = jsonNode.get("response").get("email").asText();
+        }
+        return NaverInfo.builder()
+                .naverMemberId(naverId)
                 .email(email)
                 .build();
     }
 
     private Member getMember(String accessToken) throws JsonProcessingException {
-        JsonNode jsonNode = getKakaoInfo(accessToken);
+        JsonNode jsonNode = getNaverInfo(accessToken);
 
-        // DB 에 중복된 Kakao Id 가 있는지 확인
-        String kakaoId = String.valueOf(jsonNode.get("id").asLong()) + "@kakao";
-        Member kakaoMember = memberRepository.findByMemberId(kakaoId).orElse(null);
+        // DB 에 중복된 Naver Id 가 있는지 확인
+        String naverId = String.valueOf(jsonNode.get("response").get("id").asLong()) + "@n";
+        Member naverMember = memberRepository.findByMemberId(naverId).orElse(null);
 
-        if (kakaoMember == null) {
+        if (naverMember == null) {
             return null;
         }
-        return kakaoMember;
+        return naverMember;
     }
 
-     private KakaoToken getKakaoToken(String code) throws JsonProcessingException {
+    private NaverToken getNaverToken(String code) throws JsonProcessingException {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
@@ -163,12 +164,12 @@ public class KakaoService {
         body.add("code", code);
 
         // HTTP 요청 보내기
-        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(body, headers);
+        HttpEntity<MultiValueMap<String, String>> naverTokenRequest = new HttpEntity<>(body, headers);
         RestTemplate rt = new RestTemplate();
         ResponseEntity<String> response = rt.exchange(
-                "https://kauth.kakao.com/oauth/token",
+                "https://nid.naver.com/oauth2.0/token",
                 HttpMethod.POST,
-                kakaoTokenRequest,
+                naverTokenRequest,
                 String.class
         );
 
@@ -177,41 +178,42 @@ public class KakaoService {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(responseBody);
 
-        String tokenType = jsonNode.get("token_type").asText();
-        String accessToken = jsonNode.get("access_token").asText();
-        int expiresIn = jsonNode.get("expires_in").asInt();
-        String refreshToken = jsonNode.get("refresh_token").asText();
-        int refreshTokenExpiresIn = jsonNode.get("refresh_token_expires_in").asInt();
-        String scope = jsonNode.get("scope").asText();
 
-        KakaoToken kakaoToken = KakaoToken.builder()
-                .tokenType(tokenType)
+        String accessToken = jsonNode.get("access_token").asText();
+        String refreshToken = jsonNode.get("refresh_token").asText();
+        String tokenType = jsonNode.get("token_type").asText();
+        int expiresIn = jsonNode.get("expires_in").asInt();
+        String error = jsonNode.get("error").asText();
+        String error_description = jsonNode.get("error_description").asText();
+
+        NaverToken naverToken = NaverToken.builder()
                 .accessToken(accessToken)
-                .expiresIn(expiresIn)
                 .refreshToken(refreshToken)
-                .refreshTokenExpiresIn(refreshTokenExpiresIn)
-                .scope(scope)
+                .tokenType(tokenType)
+                .expiresIn(expiresIn)
+                .error(error)
+                .errorDescription(error_description)
                 .build();
 
-        return kakaoToken;
+        return naverToken;
     }
 
     /**
      * accessToken으로 카카오 사용자 정보 얻기
      */
-    private JsonNode getKakaoInfo(String accessToken) throws JsonProcessingException {
+    private JsonNode getNaverInfo(String accessToken) throws JsonProcessingException {
         // HTTP Header 생성
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + accessToken);
+        headers.add("Authorization", "Bearer " + accessToken); // 헤더에 accessToken 담아서 사용자 정보 요청
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         // HTTP 요청 보내기
-        HttpEntity<MultiValueMap<String, String>> kakaoUserInfoRequest = new HttpEntity<>(headers);
+        HttpEntity<MultiValueMap<String, String>> naverUserInfoRequest = new HttpEntity<>(headers);
         RestTemplate rt = new RestTemplate();
         ResponseEntity<String> response = rt.exchange(
-                "https://kapi.kakao.com/v2/user/me",
+                "https://openapi.naver.com/v1/nid/me",
                 HttpMethod.POST,
-                kakaoUserInfoRequest,
+                naverUserInfoRequest,
                 String.class
         );
 
@@ -220,6 +222,7 @@ public class KakaoService {
         return objectMapper.readTree(responseBody);
 
     }
+
 
 
 }

@@ -64,15 +64,9 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         }
 
         if (baseException.getExceptionCode().getErrorCode().equals("TOKEN_06")) {
-            setResponse(response,ExceptionCode.NOT_LOGIN);
+            setResponse(response,ExceptionCode.ALL_TOKEN_EXPIRED);
             return;
         }
-
-        if (baseException.getExceptionCode().getErrorCode().equals("AUTH_01")) {
-            setResponse(response,ExceptionCode.NOT_EXISTS_TOKEN);
-            return;
-        }
-
 
         if (baseException.getExceptionCode().getErrorCode().equals("MEMBER_04")) {
             setResponse(response,ExceptionCode.NOT_EXIST_MEMBER);

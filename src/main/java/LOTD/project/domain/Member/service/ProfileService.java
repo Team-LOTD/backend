@@ -8,6 +8,7 @@ import LOTD.project.domain.Member.dto.response.MyPageResponse;
 import LOTD.project.domain.Member.repository.MemberRepository;
 import LOTD.project.global.exception.BaseException;
 import LOTD.project.global.exception.ExceptionCode;
+import LOTD.project.global.login.service.redis.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,7 @@ public class ProfileService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-
+    private final RedisService redisService;
     /**
      * 회원정보 수정 ( 닉네임 ,나이 등 )
      * @param memberUpdateNickNameRequest
@@ -80,7 +81,14 @@ public class ProfileService {
             if (!member.matchPassword(passwordEncoder, checkPassword)) {
                 throw new BaseException(ExceptionCode.WRONG_PASSWORD);
             }
+
+            // RefreshToken을 Redis에서 삭제
+            redisService.delRefreshToken(member.getMemberId());
+            
+            // 회원 DB에서 삭제
             memberRepository.delete(member);
+
+
         }
 
     }

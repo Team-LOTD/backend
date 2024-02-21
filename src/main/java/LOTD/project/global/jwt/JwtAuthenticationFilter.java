@@ -3,6 +3,7 @@ package LOTD.project.global.jwt;
 import LOTD.project.domain.Member.dto.response.LoginResponse;
 import LOTD.project.global.exception.BaseException;
 import LOTD.project.global.exception.ExceptionCode;
+import LOTD.project.global.login.service.redis.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,13 +22,12 @@ import java.util.Arrays;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
-
     /**
      * 필터 거치지 않는 URL 설정 (로그인이 필요 없는 URL)
      */
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        String[] excludePath = {"/signup", "/login", "/logout", "/memberId/check", "/nickname/check", "/oauth/**"};
+        String[] excludePath = {"/signup", "/login", "/memberId/check", "/nickname/check", "/oauth/**"};
         // 제외할 url 설정
         String path = request.getRequestURI();
         return Arrays.stream(excludePath).anyMatch(path::startsWith);
@@ -39,36 +39,35 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         String accessToken = jwtService.getAccessToken(request);
 
-        /** AT가 null 이 아닌 경우 */
-        if(accessToken != null){
-            if (jwtService.validateToken(accessToken,request)) {
-                // accessToken이 유효하면 Context에 Authentication 저장
-                SecurityContextHolder.getContext().setAuthentication(jwtService.getAuthentication(accessToken));
-            }
-        }
-        else{
 
-            /** AT가 만료되었거나, 유효하지 않은 경우
+
+        /** AT가 null 이 아닌 경우 */
+        if(accessToken != null && jwtService.validateToken(accessToken, request)) { // 1. 토큰이 헤더에 실려왔는지, 토큰이 유효한 토큰인지 확인
+            if (!jwtService.checkAccessTokenInBlackList(request,accessToken)) { // 2. 사용자가 로그아웃해서 블랙리스트에 있는 토큰인지 확인
+                    // accessToken이 유효하면 Context에 Authentication 저장
+                    SecurityContextHolder.getContext().setAuthentication(jwtService.getAuthentication(accessToken));
+                }
+        } else {
+            /** AT가 헤더에 없거나, 만료되었거나, 유효하지 않은 경우
              * RT로 AT 재발급 및 API 요청 처리
              */
-            String refreshToken = jwtService.getRefreshToken(accessToken);
-            if (refreshToken != null){
-                if (jwtService.validateToken(refreshToken,request)) {
-                    String memberId = jwtService.getMemberId(refreshToken);
-                    LoginResponse loginresponse = jwtService.createJwtToken(memberId);
 
-                    jwtService.setHeaderAccessToken(response, loginresponse.getAccessToken());
-                    jwtService.setHeaderRefreshToken(response, loginresponse.getRefreshToken());
-                    this.setAuthentication(loginresponse.getAccessToken());
-                }
-            }
+            String refreshToken = jwtService.getRefreshToken(request);
 
-            else{
-                request.setAttribute("exception",new BaseException(ExceptionCode.NOT_EXISTS_TOKEN));// 인증 토큰이 없음
+            if (refreshToken != null && jwtService.validateToken(refreshToken, request) && refreshToken.equals(jwtService.getRedisRefreshToken(refreshToken))) {
+                String memberId = jwtService.getMemberId(refreshToken);
+                LoginResponse loginResponse = jwtService.createJwtToken(memberId); // AT,RT 재생성
+
+                jwtService.setHeaderAccessToken(response, loginResponse.getAccessToken()); // AT 발급
+                jwtService.setHeaderRefreshToken(response, loginResponse.getRefreshToken()); // RT 발급
+                jwtService.setRedisRefreshToken(memberId, loginResponse.getRefreshToken()); // RT를 새로 발급했으므로 Redis의 RT 갱신
+
+                this.setAuthentication(loginResponse.getAccessToken());
+            } else {
+                request.setAttribute("exception",new BaseException(ExceptionCode.ALL_TOKEN_EXPIRED));// 인증 토큰이 없음
+                throw new BaseException(ExceptionCode.ALL_TOKEN_EXPIRED);
             }
-            
         }
-
         filterChain.doFilter(request, response);
     }
     public void setAuthentication(String accessToken) {

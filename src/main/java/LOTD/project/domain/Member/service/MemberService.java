@@ -73,7 +73,6 @@ public class MemberService {
 
         // 회원 저장 (회원가입)
         memberRepository.save(member);
-
         return member;
     }
 
@@ -88,6 +87,7 @@ public class MemberService {
         else{
             LoginResponse loginResponse = jwtService.createJwtToken(member.getMemberId());
 
+            redisService.setRefreshToken(member.getMemberId(), loginResponse.getRefreshToken()); // refreshToken redis에 저장
                return LoginResponse.builder()
                        .id(member.getId())
                        .grantType(loginResponse.getGrantType())
@@ -101,9 +101,13 @@ public class MemberService {
     }
 
     public void logout(String accessToken) throws Exception {
+        // AccessToken을 블랙리스트에 추가
         redisService.addToBlacklist(accessToken);
 
-        // AccessToken을 블랙리스트에도 추가하고, SecurityContextHolder에 있는 Authentication 정보도 삭제해준다.
+        // RefreshToken을 Redis에서 삭제
+        redisService.delRefreshToken(jwtService.getMemberId(accessToken));
+        System.out.println("d" + redisService.getRefreshToken(jwtService.getMemberId(accessToken)));
+        // SecurityContextHolder에 있는 Authentication 정보도 삭제해준다.
         SecurityContextHolder.clearContext();
     }
 }
