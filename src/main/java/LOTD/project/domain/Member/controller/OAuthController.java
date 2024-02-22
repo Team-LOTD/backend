@@ -2,7 +2,7 @@ package LOTD.project.domain.Member.controller;
 
 import LOTD.project.domain.Member.dto.response.LoginResponse;
 import LOTD.project.domain.Member.oauth2.dto.request.KakaoSignUpRequest;
-import LOTD.project.domain.Member.oauth2.dto.request.SocialSignUpRequest;
+import LOTD.project.domain.Member.oauth2.dto.request.NaverSignUpRequest;
 import LOTD.project.domain.Member.oauth2.dto.response.KakaoInfo;
 import LOTD.project.domain.Member.oauth2.dto.response.NaverInfo;
 import LOTD.project.domain.Member.oauth2.service.KakaoService;
@@ -41,7 +41,7 @@ public class OAuthController {
 
     }
 
-    @GetMapping("/naver/login")
+    @GetMapping("/oauth/naver/login")
     public ResponseEntity<?> naverLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
         LoginResponse naverLoginResponse = naverService.naverLogin(code,response);
         if (naverLoginResponse.getId() == null) {
@@ -64,9 +64,9 @@ public class OAuthController {
         return ResponseEntity.ok().body(kakaoService.kakaoSignUpAndLogin(kakaoSigUpRequest,response));
     }
 
-    @PostMapping("/naver/signup_and_login")
-    public ResponseEntity<?> naverSignUpAndLogin(@RequestBody @Valid SocialSignUpRequest socialSignUpRequest, HttpServletResponse response) {
-        return ResponseEntity.ok().body(naverService.naverSignUpAndLogin(socialSignUpRequest,response));
+    @PostMapping("/oauth/naver/nickname")
+    public ResponseEntity<?> naverSignUpAndLogin(@RequestBody @Valid NaverSignUpRequest naverSignUpRequest, HttpServletResponse response) {
+        return ResponseEntity.ok().body(naverService.naverSignUpAndLogin(naverSignUpRequest,response));
     }
 
 

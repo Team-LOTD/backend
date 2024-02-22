@@ -5,7 +5,7 @@ import LOTD.project.domain.Member.Member;
 import LOTD.project.domain.Member.Role;
 import LOTD.project.domain.Member.dto.response.LoginResponse;
 import LOTD.project.domain.Member.oauth2.SocialType;
-import LOTD.project.domain.Member.oauth2.dto.request.SocialSignUpRequest;
+import LOTD.project.domain.Member.oauth2.dto.request.NaverSignUpRequest;
 import LOTD.project.domain.Member.oauth2.dto.response.NaverInfo;
 import LOTD.project.domain.Member.oauth2.dto.response.NaverToken;
 import LOTD.project.domain.Member.repository.MemberRepository;
@@ -47,16 +47,16 @@ public class NaverService {
 
     /**
      * 카카오 회원가입 및 로그인 (첫 로그인시만)
-     * @param socialSignUpRequest
+     * @param
      * @return
      * @throws JsonProcessingException
      */
-    public LoginResponse naverSignUpAndLogin(SocialSignUpRequest socialSignUpRequest, HttpServletResponse response) {
+    public LoginResponse naverSignUpAndLogin(NaverSignUpRequest naverSignUpRequest, HttpServletResponse response) {
 
         Member member = Member.builder()
-                .memberId(socialSignUpRequest.getSocialMemberId())
-                .nickName(socialSignUpRequest.getNickName())
-                .email(socialSignUpRequest.getEmail())
+                .memberId(naverSignUpRequest.getNaverMemberId())
+                .nickName(naverSignUpRequest.getNickName())
+                .email(naverSignUpRequest.getEmail())
                 .role(Role.MEMBER)
                 .socialType(SocialType.NAVER)
                 .build();
