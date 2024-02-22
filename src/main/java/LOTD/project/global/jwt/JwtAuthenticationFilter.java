@@ -64,6 +64,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 this.setAuthentication(loginResponse.getAccessToken());
             } else {
+                System.out.println("엥엥");
                 request.setAttribute("exception",new BaseException(ExceptionCode.ALL_TOKEN_EXPIRED));// 인증 토큰이 없음
                 throw new BaseException(ExceptionCode.ALL_TOKEN_EXPIRED);
             }

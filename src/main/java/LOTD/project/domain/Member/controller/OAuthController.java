@@ -19,7 +19,6 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/oauth")
 public class OAuthController {
 
     private final BaseResponse baseResponse;
@@ -28,7 +27,7 @@ public class OAuthController {
     /**
      * 카카오 로그인 (프론트단으로부터 인가코드 전달 받음)
      */
-    @GetMapping("/kakao/login")
+    @GetMapping("/oauth/kakao/login")
     public ResponseEntity<?> kakaoLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
         LoginResponse kakaoLoginResponse = kakaoService.kakaoLogin(code,response);
         if (kakaoLoginResponse.getId() == null) {
