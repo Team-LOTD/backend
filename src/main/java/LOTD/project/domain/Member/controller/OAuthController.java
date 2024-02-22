@@ -1,10 +1,13 @@
 package LOTD.project.domain.Member.controller;
 
 import LOTD.project.domain.Member.dto.response.LoginResponse;
+import LOTD.project.domain.Member.oauth2.dto.request.GoogleSignUpRequest;
 import LOTD.project.domain.Member.oauth2.dto.request.KakaoSignUpRequest;
 import LOTD.project.domain.Member.oauth2.dto.request.NaverSignUpRequest;
+import LOTD.project.domain.Member.oauth2.dto.response.GoogleInfo;
 import LOTD.project.domain.Member.oauth2.dto.response.KakaoInfo;
 import LOTD.project.domain.Member.oauth2.dto.response.NaverInfo;
+import LOTD.project.domain.Member.oauth2.service.GoogleService;
 import LOTD.project.domain.Member.oauth2.service.KakaoService;
 import LOTD.project.domain.Member.oauth2.service.NaverService;
 import LOTD.project.global.exception.BaseException;
@@ -25,6 +28,7 @@ public class OAuthController {
     private final BaseResponse baseResponse;
     private final KakaoService kakaoService;
     private final NaverService naverService;
+    private final GoogleService googleService;
     /**
      * 카카오 로그인 (프론트단으로부터 인가코드 전달 받음)
      */
@@ -53,6 +57,19 @@ public class OAuthController {
         }
     }
 
+    @GetMapping("/oauth/google/login")
+    public ResponseEntity<?> googleLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
+        LoginResponse googleLoginResponse = googleService.googleLogin(code,response);
+        if (googleLoginResponse.getId() == null) {
+            GoogleInfo googleInfo = googleService.getMemberInfoToSend(googleLoginResponse.getAccessToken());
+            return ResponseEntity.ok().body(googleInfo);
+        }
+        else {
+            return baseResponse.success(HttpStatus.OK,googleLoginResponse,"로그인에 성공했습니다.");
+        }
+    }
+
+
     /**
      * 카카오 회원가입(로그인) 첫 로그인 시만 진행
      * @param
@@ -68,6 +85,13 @@ public class OAuthController {
     public ResponseEntity<?> naverSignUpAndLogin(@RequestBody @Valid NaverSignUpRequest naverSignUpRequest, HttpServletResponse response) {
         return ResponseEntity.ok().body(naverService.naverSignUpAndLogin(naverSignUpRequest,response));
     }
+
+    @PostMapping("/oauth/google/nickname")
+    public ResponseEntity<?> googleSignUpAndLogin(@RequestBody @Valid GoogleSignUpRequest googleSignUpRequest, HttpServletResponse response) {
+        return ResponseEntity.ok().body(googleService.googleSignUpAndLogin(googleSignUpRequest,response));
+    }
+
+
 
 
     @ExceptionHandler(BaseException.class)
