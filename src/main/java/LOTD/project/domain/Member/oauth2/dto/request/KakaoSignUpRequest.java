@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Getter
-public class SocialSignUpRequest {
+public class KakaoSignUpRequest {
 
     private String kakaoMemberId;
     @NotBlank(message = "닉네임은 필수 입력 값입니다.")

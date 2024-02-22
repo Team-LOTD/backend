@@ -4,7 +4,7 @@ import LOTD.project.domain.Member.Member;
 import LOTD.project.domain.Member.Role;
 import LOTD.project.domain.Member.dto.response.LoginResponse;
 import LOTD.project.domain.Member.oauth2.SocialType;
-import LOTD.project.domain.Member.oauth2.dto.request.SocialSignUpRequest;
+import LOTD.project.domain.Member.oauth2.dto.request.KakaoSignUpRequest;
 import LOTD.project.domain.Member.oauth2.dto.response.KakaoInfo;
 import LOTD.project.domain.Member.oauth2.dto.response.KakaoToken;
 import LOTD.project.domain.Member.repository.MemberRepository;
@@ -46,16 +46,16 @@ public class KakaoService {
 
     /**
      * 카카오 회원가입 및 로그인 (첫 로그인시만)
-     * @param socialSignUpRequest
+     * @param
      * @return
      * @throws JsonProcessingException
      */
-    public LoginResponse kakaoSignUpAndLogin(SocialSignUpRequest socialSignUpRequest, HttpServletResponse response) {
+    public LoginResponse kakaoSignUpAndLogin(KakaoSignUpRequest kakaoSignUpRequest, HttpServletResponse response) {
 
         Member member = Member.builder()
-                .memberId(socialSignUpRequest.getSocialMemberId())
-                .nickName(socialSignUpRequest.getNickName())
-                .email(socialSignUpRequest.getEmail())
+                .memberId(kakaoSignUpRequest.getKakaoMemberId())
+                .nickName(kakaoSignUpRequest.getNickName())
+                .email(kakaoSignUpRequest.getEmail())
                 .role(Role.MEMBER)
                 .socialType(SocialType.KAKAO)
                 .build();

@@ -1,6 +1,7 @@
 package LOTD.project.domain.Member.controller;
 
 import LOTD.project.domain.Member.dto.response.LoginResponse;
+import LOTD.project.domain.Member.oauth2.dto.request.KakaoSignUpRequest;
 import LOTD.project.domain.Member.oauth2.dto.request.SocialSignUpRequest;
 import LOTD.project.domain.Member.oauth2.dto.response.KakaoInfo;
 import LOTD.project.domain.Member.oauth2.dto.response.NaverInfo;
@@ -54,13 +55,13 @@ public class OAuthController {
 
     /**
      * 카카오 회원가입(로그인) 첫 로그인 시만 진행
-     * @param socialSignUpRequest
+     * @param
      * @param response
      * @return
      */
-    @PostMapping("/kakao/signup_and_login")
-    public ResponseEntity<?> kakaoSignUpAndLogin(@RequestBody @Valid SocialSignUpRequest socialSignUpRequest, HttpServletResponse response) {
-        return ResponseEntity.ok().body(kakaoService.kakaoSignUpAndLogin(socialSignUpRequest,response));
+    @PostMapping("/oauth/kakao/nickname")
+    public ResponseEntity<?> kakaoSignUpAndLogin(@RequestBody @Valid KakaoSignUpRequest kakaoSigUpRequest, HttpServletResponse response) {
+        return ResponseEntity.ok().body(kakaoService.kakaoSignUpAndLogin(kakaoSigUpRequest,response));
     }
 
     @PostMapping("/naver/signup_and_login")
