@@ -34,8 +34,5 @@ public class MemberSignUpRequest {
     @Pattern(regexp = "(^\\w+@\\w+\\.\\w+(\\.\\w+)?$)|", message = "올바르지 않은 이메일 형식입니다.")
     private String email;
 
-    @Min(value = 1)
-    @Max(value = 150)
-    private int age;
 
 }

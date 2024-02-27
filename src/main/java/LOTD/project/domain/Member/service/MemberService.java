@@ -63,7 +63,6 @@ public class MemberService {
                 .password(memberSignUpRequest.getPassword())
                 .nickName(memberSignUpRequest.getNickName())
                 .email(memberSignUpRequest.getEmail())
-                .age(memberSignUpRequest.getAge())
                 .role(Role.MEMBER)
                 .socialType(null)
                 .build();

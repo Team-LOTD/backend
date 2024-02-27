@@ -36,18 +36,6 @@ public class ProfileController {
         return baseResponse.success(HttpStatus.OK,"닉네임이 정상적으로 수정되었습니다.");
     }
 
-    @PutMapping("/members/age/update")
-    public ResponseEntity<?> updateMemberAge(@RequestBody @Valid MemberUpdateAgeRequest memberUpdateAgeRequest, BindingResult bindingResult,
-                                             @RequestParam(name = "id") Long id) throws Exception{
-
-        // 유효성 검사를 통과하지 못한 경우 바로 에러 메시지 반환
-        if (bindingResult.hasErrors()) {
-            return baseResponse.fail(HttpStatus.BAD_REQUEST, "나이는 1~150 사이의 숫자만 입력해주세요.");
-        }
-        
-        profileService.updateMemberAge(memberUpdateAgeRequest, id);
-        return baseResponse.success(HttpStatus.OK,"나이가 정상적으로 수정되었습니다.");
-    }
 
     @PutMapping("/members/email/update")
     public ResponseEntity<?> updateMemberEmail(@RequestBody @Valid MemberUpdateEmailRequest memberUpdateEmailRequest, BindingResult bindingResult,

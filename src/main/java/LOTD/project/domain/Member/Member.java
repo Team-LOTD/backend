@@ -38,8 +38,6 @@ public class Member implements UserDetails {
 
     private String email; // 이메일
 
-    private int age; // 나이
-
     @Enumerated(EnumType.STRING)
     private SocialType socialType; // KAKAO, NAVER, GOOGLE
 
@@ -68,12 +66,6 @@ public class Member implements UserDetails {
 
     // 이메일 변경
     public void updateEmail(String email) { this.email = email; }
-
-    // 나이 변경
-    public void updateAge(int age) {
-        this.age = age;
-    }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

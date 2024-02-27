@@ -13,7 +13,6 @@ public class MemberSignUpResponse extends BaseResponse {
     private String memberId;
     private String nickName;
     private String email;
-    private int age;
 
     public static MemberSignUpResponse of(Member member) {
 
@@ -21,7 +20,6 @@ public class MemberSignUpResponse extends BaseResponse {
         memberSignUpResponse.setMemberId(member.getMemberId());
         memberSignUpResponse.setNickName(member.getNickName());
         memberSignUpResponse.setEmail(member.getEmail());
-        memberSignUpResponse.setAge(member.getAge());
 
         return memberSignUpResponse;
     }

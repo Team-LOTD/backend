@@ -1,7 +1,6 @@
 package LOTD.project.domain.Member.service;
 
 import LOTD.project.domain.Member.Member;
-import LOTD.project.domain.Member.dto.request.MemberUpdateAgeRequest;
 import LOTD.project.domain.Member.dto.request.MemberUpdateEmailRequest;
 import LOTD.project.domain.Member.dto.request.MemberUpdateNickNameRequest;
 import LOTD.project.domain.Member.dto.response.MyPageResponse;
@@ -32,15 +31,6 @@ public class ProfileService {
 
         if (memberUpdateNickNameRequest.getNickName() != null){
             member.updateNickname(memberUpdateNickNameRequest.getNickName());
-        }
-
-    }
-
-    public void updateMemberAge(MemberUpdateAgeRequest memberUpdateAgeRequest, Long id){
-        Member member = memberRepository.findById(id).orElse(null);
-
-        if (memberUpdateAgeRequest.getAge() != 0){
-            member.updateAge(memberUpdateAgeRequest.getAge());
         }
 
     }
@@ -103,7 +93,6 @@ public class ProfileService {
             return MyPageResponse.builder()
                     .memberId(member.getMemberId())
                     .nickName(member.getNickName())
-                    .age(member.getAge())
                     .build();
         }
     }
