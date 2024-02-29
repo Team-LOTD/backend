@@ -165,7 +165,7 @@ public class GoogleService {
         RestTemplate rt = new RestTemplate();
         ResponseEntity<String> response = rt.exchange(
                 "https://oauth2.googleapis.com/token",
-                HttpMethod.GET,
+                HttpMethod.POST,
                 googleTokenRequest,
                 String.class
         );
