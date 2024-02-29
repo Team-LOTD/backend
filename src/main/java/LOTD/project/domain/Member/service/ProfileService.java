@@ -93,6 +93,7 @@ public class ProfileService {
             return MyPageResponse.builder()
                     .memberId(member.getMemberId())
                     .nickName(member.getNickName())
+                    .email(member.getEmail())
                     .build();
         }
     }

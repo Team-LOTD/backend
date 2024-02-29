@@ -11,5 +11,6 @@ public class MyPageResponse {
 
     private String memberId;
     private String nickName;
+    private String email;
 
 }
