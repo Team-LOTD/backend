@@ -11,7 +11,5 @@ public class NaverToken {
     private String refreshToken;
     private String tokenType;
     private int expiresIn;
-    private String error;
-    private String errorDescription;
 
 }

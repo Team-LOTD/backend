@@ -183,16 +183,14 @@ public class NaverService {
         String refreshToken = jsonNode.get("refresh_token").asText();
         String tokenType = jsonNode.get("token_type").asText();
         int expiresIn = jsonNode.get("expires_in").asInt();
-        String error = jsonNode.get("error").asText();
-        String error_description = jsonNode.get("error_description").asText();
+        //String error = jsonNode.get("error").asText();
+        //String error_description = jsonNode.get("error_description").asText();
 
         NaverToken naverToken = NaverToken.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .tokenType(tokenType)
                 .expiresIn(expiresIn)
-                .error(error)
-                .errorDescription(error_description)
                 .build();
 
         return naverToken;

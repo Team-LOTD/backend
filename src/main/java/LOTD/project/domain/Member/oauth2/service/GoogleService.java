@@ -179,7 +179,7 @@ public class GoogleService {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(responseBody);
 
-        System.out.println(jsonNode.get(0));
+
         System.out.println(jsonNode.get("refresh_token"));
         System.out.println(jsonNode.get("access_token"));
 
