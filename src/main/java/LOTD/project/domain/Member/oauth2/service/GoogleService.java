@@ -179,8 +179,8 @@ public class GoogleService {
         String accessToken = jsonNode.get("access_token").asText();
         String refreshToken = jsonNode.get("refresh_token").asText();
         String tokenType = jsonNode.get("token_type").asText();
-        Long expiresIn = jsonNode.get("expires_in").asLong();
-        Long refreshTokenExpiresIn = jsonNode.get("refresh_token_expires_in").asLong();
+        int expiresIn = jsonNode.get("expires_in").asInt();
+        int refreshTokenExpiresIn = jsonNode.get("refresh_token_expires_in").asInt();
         String scope = jsonNode.get("scope").asText();
 
         GoogleToken googleToken = GoogleToken.builder()
