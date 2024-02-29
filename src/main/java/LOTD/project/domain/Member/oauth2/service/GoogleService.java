@@ -123,7 +123,7 @@ public class GoogleService {
         JsonNode jsonNode = getGoogleInfo(accessToken);
 
         // DB 에 중복된 Google 소셜 회원 Id 가 있는지 확인
-        String googleId = String.valueOf(jsonNode.get("response").get("id").asLong()) + "@n";
+        String googleId = String.valueOf(jsonNode.get("response").get("id").asLong()) + "@g";
 
         String email = null;
         if (jsonNode.get("response").get("email") != null) {
@@ -179,8 +179,8 @@ public class GoogleService {
         String accessToken = jsonNode.get("access_token").asText();
         String refreshToken = jsonNode.get("refresh_token").asText();
         String tokenType = jsonNode.get("token_type").asText();
-        int expiresIn = jsonNode.get("expires_in").asInt();
-        int refreshTokenExpiresIn = jsonNode.get("refresh_token_expires_in").asInt();
+        Long expiresIn = jsonNode.get("expires_in").asLong();
+        Long refreshTokenExpiresIn = jsonNode.get("refresh_token_expires_in").asLong();
         String scope = jsonNode.get("scope").asText();
 
         GoogleToken googleToken = GoogleToken.builder()
