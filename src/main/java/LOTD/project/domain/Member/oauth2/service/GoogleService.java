@@ -123,11 +123,11 @@ public class GoogleService {
         JsonNode jsonNode = getGoogleInfo(accessToken);
 
         // DB 에 중복된 Google 소셜 회원 Id 가 있는지 확인
-        String googleId = String.valueOf(jsonNode.get("response").get("id").asLong()) + "@g";
+        String googleId = String.valueOf(jsonNode.get("id").asLong()) + "@g";
 
         String email = null;
-        if (jsonNode.get("response").get("email") != null) {
-            email = jsonNode.get("response").get("email").asText();
+        if (jsonNode.get("email") != null) {
+            email = jsonNode.get("email").asText();
         }
         return GoogleInfo.builder()
                 .googleMemberId(googleId)
@@ -139,7 +139,7 @@ public class GoogleService {
         JsonNode jsonNode = getGoogleInfo(accessToken);
 
         // DB 에 중복된 Google 소셜 Id 가 있는지 확인
-        String googleId = String.valueOf(jsonNode.get("response").get("id").asLong()) + "@g";
+        String googleId = String.valueOf(jsonNode.get("id").asLong()) + "@g";
         Member googleMember = memberRepository.findByMemberId(googleId).orElse(null);
 
         if (googleMember == null) {
@@ -208,7 +208,7 @@ public class GoogleService {
         RestTemplate rt = new RestTemplate();
         ResponseEntity<String> response = rt.exchange(
                 "https://www.googleapis.com/userinfo/v2/me",
-                HttpMethod.POST,
+                HttpMethod.GET,
                 googleUserInfoRequest,
                 String.class
         );
