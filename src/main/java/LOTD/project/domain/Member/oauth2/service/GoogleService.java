@@ -160,6 +160,10 @@ public class GoogleService {
         body.add("client_secret",clientSecret);
         body.add("code", code);
 
+        System.out.println(clientId);
+        System.out.println(clientSecret);
+        System.out.println(redirectUri);
+
         // HTTP 요청 보내기
         HttpEntity<MultiValueMap<String, String>> googleTokenRequest = new HttpEntity<>(body, headers);
         RestTemplate rt = new RestTemplate();
