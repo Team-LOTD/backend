@@ -176,12 +176,15 @@ public class GoogleService {
 
         // HTTP 응답 (JSON) -> 액세스 토큰 파싱
         String responseBody = response.getBody();
+        System.out.println("리스폰스바디: " + responseBody);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(responseBody);
 
 
+
         System.out.println(jsonNode.get("refresh_token"));
         System.out.println(jsonNode.get("access_token"));
+        System.out.println(jsonNode.get("refresh_token_expires_in"));
 
         String accessToken = jsonNode.get("access_token").asText();
         String refreshToken = jsonNode.get("refresh_token").asText();
