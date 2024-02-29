@@ -208,7 +208,7 @@ public class GoogleService {
         RestTemplate rt = new RestTemplate();
         ResponseEntity<String> response = rt.exchange(
                 "https://www.googleapis.com/userinfo/v2/me",
-                HttpMethod.POST,
+                HttpMethod.GET,
                 googleUserInfoRequest,
                 String.class
         );
