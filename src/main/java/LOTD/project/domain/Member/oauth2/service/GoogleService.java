@@ -214,6 +214,7 @@ public class GoogleService {
         );
 
         String responseBody = response.getBody();
+        System.out.println(responseBody);
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readTree(responseBody);
 
