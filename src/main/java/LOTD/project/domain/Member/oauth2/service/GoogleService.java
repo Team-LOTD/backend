@@ -160,10 +160,6 @@ public class GoogleService {
         body.add("client_secret",clientSecret);
         body.add("code", code);
 
-        System.out.println(clientId);
-        System.out.println(clientSecret);
-        System.out.println(redirectUri);
-
         // HTTP 요청 보내기
         HttpEntity<MultiValueMap<String, String>> googleTokenRequest = new HttpEntity<>(body, headers);
         RestTemplate rt = new RestTemplate();
@@ -181,16 +177,10 @@ public class GoogleService {
         JsonNode jsonNode = objectMapper.readTree(responseBody);
 
 
-
-        System.out.println(jsonNode.get("refresh_token"));
-        System.out.println(jsonNode.get("access_token"));
-        System.out.println(jsonNode.get("refresh_token_expires_in"));
-
         String accessToken = jsonNode.get("access_token").asText();
         String refreshToken = jsonNode.get("refresh_token").asText();
         String tokenType = jsonNode.get("token_type").asText();
         int expiresIn = jsonNode.get("expires_in").asInt();
-        int refreshTokenExpiresIn = jsonNode.get("refresh_token_expires_in").asInt();
         String scope = jsonNode.get("scope").asText();
 
         GoogleToken googleToken = GoogleToken.builder()
@@ -198,7 +188,6 @@ public class GoogleService {
                 .refreshToken(refreshToken)
                 .tokenType(tokenType)
                 .expiresIn(expiresIn)
-                .refreshTokenExpiresIn(refreshTokenExpiresIn)
                 .scope(scope)
                 .build();
 
