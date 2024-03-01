@@ -125,7 +125,7 @@ public class KakaoService {
         JsonNode jsonNode = getKakaoInfo(accessToken);
 
         // DB 에 중복된 Kakao Id 가 있는지 확인
-        String kakaoId = String.valueOf(jsonNode.get("id").asLong()) + "@kakao";
+        String kakaoId = String.valueOf(jsonNode.get("id").asLong()) + "@k";
 
         String email = null;
         if (jsonNode.get("kakao_account").get("account_email") != null) {
@@ -141,7 +141,7 @@ public class KakaoService {
         JsonNode jsonNode = getKakaoInfo(accessToken);
 
         // DB 에 중복된 Kakao Id 가 있는지 확인
-        String kakaoId = String.valueOf(jsonNode.get("id").asLong()) + "@kakao";
+        String kakaoId = String.valueOf(jsonNode.get("id").asLong()) + "@k";
         Member kakaoMember = memberRepository.findByMemberId(kakaoId).orElse(null);
 
         if (kakaoMember == null) {
