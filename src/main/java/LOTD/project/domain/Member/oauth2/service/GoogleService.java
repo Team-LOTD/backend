@@ -97,10 +97,11 @@ public class GoogleService {
         Member member = getMember(accessToken);
 
         if (member == null) {
+            System.out.println(11);
             return LoginResponse.builder().accessToken(accessToken).build();
         }
         else {
-
+            System.out.println(22);
             LoginResponse loginResponse = jwtService.createJwtToken(member.getMemberId());
 
             jwtService.setHeaderAccessToken(response, loginResponse.getAccessToken());
@@ -123,8 +124,8 @@ public class GoogleService {
         JsonNode jsonNode = getGoogleInfo(accessToken);
 
         // DB 에 중복된 Google 소셜 회원 Id 가 있는지 확인
-        String googleId = jsonNode.get("id") + "@g";
-
+        String googleId = (jsonNode.get("id") + "@g").replaceAll("\"","");
+        System.out.println(googleId);
         String email = null;
         if (jsonNode.get("email") != null) {
             email = jsonNode.get("email").asText();
