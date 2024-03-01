@@ -44,8 +44,6 @@ public class Member implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    private Collection<? extends GrantedAuthority> authorities;
-
     // 패스워드 암호화 메소드
     public void passwordEncode(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(this.password);
@@ -69,9 +67,7 @@ public class Member implements UserDetails {
     // 이메일 변경
     public void updateEmail(String email) { this.email = email; }
 
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
-        this.authorities = authorities;
-    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();

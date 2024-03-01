@@ -25,6 +25,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Transactional
@@ -54,6 +55,7 @@ public class KakaoService {
 
         Member member = Member.builder()
                 .memberId(kakaoSignUpRequest.getKakaoMemberId())
+                .password(UUID.randomUUID().toString())
                 .nickName(kakaoSignUpRequest.getNickName())
                 .email(kakaoSignUpRequest.getEmail())
                 .role(Role.MEMBER)

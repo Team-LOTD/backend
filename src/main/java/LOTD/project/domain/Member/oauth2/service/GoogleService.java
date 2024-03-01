@@ -24,6 +24,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +53,7 @@ public class GoogleService {
 
         Member member = Member.builder()
                 .memberId(googleSignUpRequest.getGoogleMemberId())
+                .password(UUID.randomUUID().toString())
                 .nickName(googleSignUpRequest.getNickName())
                 .email(googleSignUpRequest.getEmail())
                 .role(Role.MEMBER)

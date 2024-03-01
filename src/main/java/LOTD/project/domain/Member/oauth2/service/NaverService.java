@@ -26,6 +26,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -55,6 +56,7 @@ public class NaverService {
 
         Member member = Member.builder()
                 .memberId(naverSignUpRequest.getNaverMemberId())
+                .password(UUID.randomUUID().toString())
                 .nickName(naverSignUpRequest.getNickName())
                 .email(naverSignUpRequest.getEmail())
                 .role(Role.MEMBER)
