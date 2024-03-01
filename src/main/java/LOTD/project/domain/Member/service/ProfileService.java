@@ -94,6 +94,7 @@ public class ProfileService {
                     .memberId(member.getMemberId())
                     .nickName(member.getNickName())
                     .email(member.getEmail())
+                    .socialType(member.getSocialType())
                     .build();
         }
     }
