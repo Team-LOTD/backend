@@ -36,9 +36,19 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         List<GrantedAuthority> authority = List.of(new SimpleGrantedAuthority(member.getRole().getKey())); // 역할 넣어주기
 
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(member.getMemberId())
-                .password(member.getPassword())
-                .authorities(authority).build();
+        if (member.getSocialType() == null) {
+
+            return org.springframework.security.core.userdetails.User.builder()
+                    .username(member.getMemberId())
+                    .password(member.getPassword())
+                    .authorities(authority).build();
+        }
+
+        else{
+            return org.springframework.security.core.userdetails.User.builder()
+                    .username(member.getMemberId())
+                    .authorities(authority).build();
+        }
+
     }
 }
