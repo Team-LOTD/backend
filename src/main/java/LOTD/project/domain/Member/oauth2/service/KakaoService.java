@@ -127,6 +127,7 @@ public class KakaoService {
         // DB 에 중복된 Kakao Id 가 있는지 확인
         String kakaoId = String.valueOf(jsonNode.get("id").asLong()) + "@k";
 
+        System.out.println(jsonNode.get("kakao_account").get("account_email"));
         String email = null;
         if (jsonNode.get("kakao_account").get("account_email") != null) {
             email = jsonNode.get("kakao_account").get("account_email").asText();
