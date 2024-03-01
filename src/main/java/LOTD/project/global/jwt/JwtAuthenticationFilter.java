@@ -25,6 +25,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
 
+
+
+
+
     private static final String[] NO_FILTER_URL = {
             "/signup", "/login", "/logout", "/memberId/check", "/nickname/check", "/oauth/**"
     };
@@ -49,6 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         if (NO_FILTER_URL_LIST.contains(request.getRequestURI())) {
+            System.out.println("왜타시발");
             filterChain.doFilter(request, response);
             return;
         }
