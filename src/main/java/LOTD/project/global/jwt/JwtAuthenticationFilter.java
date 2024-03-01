@@ -3,7 +3,6 @@ package LOTD.project.global.jwt;
 import LOTD.project.domain.Member.dto.response.LoginResponse;
 import LOTD.project.global.exception.BaseException;
 import LOTD.project.global.exception.ExceptionCode;
-import LOTD.project.global.login.service.redis.RedisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,8 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor

@@ -73,7 +73,7 @@ public class ProfileController {
     }
 
     @DeleteMapping("/members/delete")
-    public ResponseEntity<?> delMember(@RequestBody @Valid DeleteMemberRequest deleteMemberRequest, BindingResult bindingResult, @RequestParam(name = "id") Long id) {
+    public ResponseEntity<?> deleteMember(@RequestBody @Valid DeleteMemberRequest deleteMemberRequest, BindingResult bindingResult, @RequestParam(name = "id") Long id) {
 
         // 유효성 검사를 통과하지 못한 경우 바로 에러 메시지 반환
         if (bindingResult.hasErrors()) {
@@ -83,6 +83,15 @@ public class ProfileController {
         profileService.delMember(deleteMemberRequest.getPassword(),id);
         return baseResponse.success(HttpStatus.OK,"탈퇴 완료되었습니다.");
     }
+
+    @DeleteMapping("/members/social")
+    public ResponseEntity<?> deleteSocialMember(@RequestParam(name = "id") Long id) {
+
+        profileService.deleteSocialMember(id);
+        return baseResponse.success(HttpStatus.OK,"탈퇴 완료되었습니다.");
+    }
+
+
 
     @GetMapping("/members")
     public ResponseEntity<?> MyPage(@RequestParam(name = "id") Long id) {

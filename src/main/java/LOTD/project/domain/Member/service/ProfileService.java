@@ -83,6 +83,24 @@ public class ProfileService {
 
     }
 
+    public void deleteSocialMember(Long id){
+        Member member = memberRepository.findById(id).orElse(null);
+
+        if (member != null) {
+
+            // RefreshToken을 Redis에서 삭제
+            redisService.delRefreshToken(member.getMemberId());
+
+            // 회원 DB에서 삭제
+            memberRepository.delete(member);
+
+        } else {
+            throw new BaseException(ExceptionCode.NOT_EXIST_MEMBER);
+        }
+
+    }
+
+
     public MyPageResponse myPage(Long id){
         Member member = memberRepository.findById(id).orElse(null);
 
