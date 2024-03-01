@@ -157,7 +157,7 @@ public class JwtService {
         String authorizationHeader = request.getHeader("Authorization");
 
         if(authorizationHeader != null && !authorizationHeader.equals("")){
-            if (authorizationHeader.startsWith("Bearer ") && authorizationHeader.length() > 7) {
+            if (authorizationHeader.startsWith("Bearer") && authorizationHeader.length() > 7) {
                 String accessToken = authorizationHeader.substring(7); // accesstoken 추출
                 return accessToken;
             }
@@ -170,7 +170,7 @@ public class JwtService {
         String authorizationHeader = request.getHeader("Authorization-refresh");
 
         if(authorizationHeader != null && !authorizationHeader.equals("")){
-            if (authorizationHeader.startsWith("Bearer ") && authorizationHeader.length() > 7) {
+            if (authorizationHeader.startsWith("Bearer") && authorizationHeader.length() > 7) {
                 String refreshToken = authorizationHeader.substring(7); // refresh 추출
                 return refreshToken;
             }
