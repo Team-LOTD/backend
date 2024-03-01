@@ -28,7 +28,7 @@ public class Member implements UserDetails {
     @Column(name = "id")
     private Long id; // pk
 
-    @Column(nullable = false, length = 25, unique = true)
+    @Column(nullable = false, unique = true)
     private String memberId; // 회원 ID
 
     private String password; // 패스워드
