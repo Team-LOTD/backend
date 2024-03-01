@@ -143,7 +143,6 @@ public class NaverService {
 
         // DB 에 중복된 Naver Id 가 있는지 확인
         String naverId = jsonNode.get("response").get("id") + "@n";
-        System.out.println("네이버아이디 : " + naverId);
         Member naverMember = memberRepository.findByMemberId(naverId).orElse(null);
 
         if (naverMember == null) {

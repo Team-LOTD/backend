@@ -123,7 +123,7 @@ public class GoogleService {
         JsonNode jsonNode = getGoogleInfo(accessToken);
 
         // DB 에 중복된 Google 소셜 회원 Id 가 있는지 확인
-        String googleId = jsonNode.get("id")+ "@g";
+        String googleId = jsonNode.get("id") + "@g";
 
         String email = null;
         if (jsonNode.get("email") != null) {
@@ -139,7 +139,9 @@ public class GoogleService {
         JsonNode jsonNode = getGoogleInfo(accessToken);
 
         // DB 에 중복된 Google 소셜 Id 가 있는지 확인
-        String googleId = jsonNode.get("id")+ "@g";
+        String googleId = jsonNode.get("id") + "@g";
+        System.out.println(googleId);
+        googleId.replaceAll("\"","");
         Member googleMember = memberRepository.findByMemberId(googleId).orElse(null);
 
         if (googleMember == null) {
@@ -172,7 +174,6 @@ public class GoogleService {
 
         // HTTP 응답 (JSON) -> 액세스 토큰 파싱
         String responseBody = response.getBody();
-        System.out.println("리스폰스바디: " + responseBody);
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(responseBody);
 
@@ -214,7 +215,6 @@ public class GoogleService {
         );
 
         String responseBody = response.getBody();
-        System.out.println(responseBody);
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readTree(responseBody);
 
