@@ -45,9 +45,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         else{
-            return org.springframework.security.core.userdetails.User.builder()
-                    .username(member.getMemberId())
-                    .authorities(authority).build();
+            return member;
         }
 
     }
