@@ -34,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new BaseException(ExceptionCode.NOT_EXIST_MEMBER);
         }
 
-        List<GrantedAuthority> authority = List.of(new SimpleGrantedAuthority(member.getRole().getKey())); // 역할 넣어주기
+        List<GrantedAuthority> authority = List.of(new SimpleGrantedAuthority(member.getRole().getKey())); // 권한 넣어주기
 
         if (member.getSocialType() == null) {
 
@@ -45,6 +45,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         else{
+            member.setAuthorities(authority);
             return member;
         }
 
