@@ -139,9 +139,8 @@ public class GoogleService {
         JsonNode jsonNode = getGoogleInfo(accessToken);
 
         // DB 에 중복된 Google 소셜 Id 가 있는지 확인
-        String googleId = jsonNode.get("id") + "@g";
+        String googleId = (jsonNode.get("id") + "@g").replaceAll("\"","");
         System.out.println(googleId);
-        googleId.replaceAll("\"","");
         Member googleMember = memberRepository.findByMemberId(googleId).orElse(null);
 
         if (googleMember == null) {
