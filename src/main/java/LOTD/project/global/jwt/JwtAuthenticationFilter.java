@@ -16,15 +16,23 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
+
+    private static final String[] NO_FILTER_URL = {
+            "/signup", "/login", "/logout", "/memberId/check", "/nickname/check", "/oauth/**"
+    };
+
+    private static final List<String> NO_FILTER_URL_LIST = new ArrayList<>(Arrays.asList(NO_FILTER_URL));
     /**
      * 필터 거치지 않는 URL 설정 (로그인이 필요 없는 URL)
-     */
+
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String[] excludePath = {"/signup", "/login", "/memberId/check", "/nickname/check", "/oauth/**"};
@@ -35,10 +43,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
         return Arrays.stream(excludePath).anyMatch(path::startsWith);
     }
+     */
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
+        if (NO_FILTER_URL_LIST.contains(request.getRequestURI())) {
+            return;
+        }
 
         String accessToken = jwtService.getAccessToken(request);
 
