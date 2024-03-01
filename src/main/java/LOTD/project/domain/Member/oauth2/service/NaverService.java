@@ -126,7 +126,7 @@ public class NaverService {
         JsonNode jsonNode = getNaverInfo(accessToken);
 
         // DB 에 중복된 Naver Id 가 있는지 확인
-        String naverId = String.valueOf(jsonNode.get("response").get("id").asLong()) + "@n";
+        String naverId = jsonNode.get("response").get("id") + "@n";
 
         String email = null;
         if (jsonNode.get("response").get("email") != null) {
@@ -142,7 +142,7 @@ public class NaverService {
         JsonNode jsonNode = getNaverInfo(accessToken);
 
         // DB 에 중복된 Naver Id 가 있는지 확인
-        String naverId = String.valueOf(jsonNode.get("response").get("id").asLong()) + "@n";
+        String naverId = jsonNode.get("response").get("id") + "@n";
         Member naverMember = memberRepository.findByMemberId(naverId).orElse(null);
 
         if (naverMember == null) {

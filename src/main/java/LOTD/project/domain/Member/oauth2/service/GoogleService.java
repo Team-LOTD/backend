@@ -123,7 +123,7 @@ public class GoogleService {
         JsonNode jsonNode = getGoogleInfo(accessToken);
 
         // DB 에 중복된 Google 소셜 회원 Id 가 있는지 확인
-        String googleId = String.valueOf(jsonNode.get("id").asLong()) + "@g";
+        String googleId = jsonNode.get("id")+ "@g";
 
         String email = null;
         if (jsonNode.get("email") != null) {
@@ -139,7 +139,7 @@ public class GoogleService {
         JsonNode jsonNode = getGoogleInfo(accessToken);
 
         // DB 에 중복된 Google 소셜 Id 가 있는지 확인
-        String googleId = String.valueOf(jsonNode.get("id").asLong()) + "@g";
+        String googleId = jsonNode.get("id")+ "@g";
         Member googleMember = memberRepository.findByMemberId(googleId).orElse(null);
 
         if (googleMember == null) {
