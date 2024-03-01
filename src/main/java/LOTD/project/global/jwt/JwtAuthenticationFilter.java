@@ -26,14 +26,23 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
 
 
-
-
-
-    private static final String[] NO_FILTER_URL = {
+    private final List<String> EXCLUDE_URL_PATTERN = List.of(
             "/signup", "/login", "/logout", "/memberId/check", "/nickname/check", "/oauth/**"
-    };
+    );
 
-    private static final List<String> NO_FILTER_URL_LIST = new ArrayList<>(Arrays.asList(NO_FILTER_URL));
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String pathName = request.getServletPath();
+        return EXCLUDE_URL_PATTERN.stream().anyMatch(url -> {
+            if (url.endsWith("/**")) {
+                return pathName.startsWith(url.substring(0, url.length() - 3));
+            } else {
+                return url.equalsIgnoreCase(pathName);
+            }
+        });
+    }
+
+
     /**
      * 필터 거치지 않는 URL 설정 (로그인이 필요 없는 URL)
 
@@ -52,11 +61,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        if (NO_FILTER_URL_LIST.contains(request.getRequestURI())) {
-            System.out.println("왜타시발");
-            filterChain.doFilter(request, response);
-            return;
-        }
 
         String accessToken = jwtService.getAccessToken(request);
 
