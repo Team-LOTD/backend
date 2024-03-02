@@ -1,14 +1,13 @@
 package LOTD.project.global.jwt;
 
 
-import LOTD.project.domain.Member.dto.response.LoginResponse;
+import LOTD.project.domain.member.dto.response.LoginResponse;
 
 import LOTD.project.global.exception.BaseException;
 import LOTD.project.global.exception.ExceptionCode;
 import LOTD.project.global.login.service.CustomUserDetailsService;
 import LOTD.project.global.login.service.redis.RedisService;
 
-import com.fasterxml.jackson.databind.introspect.AccessorNamingStrategy;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.io.DecodingException;
@@ -16,7 +15,6 @@ import io.jsonwebtoken.security.Keys;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +24,6 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Key;
-import java.time.Duration;
 import java.util.Date;
 
 @Slf4j

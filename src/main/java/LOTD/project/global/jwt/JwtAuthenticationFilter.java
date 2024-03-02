@@ -1,6 +1,6 @@
 package LOTD.project.global.jwt;
 
-import LOTD.project.domain.Member.dto.response.LoginResponse;
+import LOTD.project.domain.member.dto.response.LoginResponse;
 import LOTD.project.global.exception.BaseException;
 import LOTD.project.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;

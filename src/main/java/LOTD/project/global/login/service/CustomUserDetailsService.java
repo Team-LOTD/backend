@@ -1,8 +1,7 @@
 package LOTD.project.global.login.service;
 
-import LOTD.project.domain.Member.Member;
-import LOTD.project.domain.Member.Role;
-import LOTD.project.domain.Member.repository.MemberRepository;
+import LOTD.project.domain.member.Member;
+import LOTD.project.domain.member.repository.MemberRepository;
 import LOTD.project.global.exception.BaseException;
 import LOTD.project.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
