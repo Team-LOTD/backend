@@ -19,8 +19,17 @@ public enum ExceptionCode {
     WRONG_PASSWORD(HttpStatus.BAD_REQUEST, "MEMBER_02", "비밀번호가 틀렸습니다."),
     NOT_SAME_PASSWORD(HttpStatus.BAD_REQUEST, "MEMBER_03", "입력 비밀번호와 확인 비밀번호가 일치하지 않습니다."),
     NOT_EXIST_MEMBER(HttpStatus.BAD_REQUEST, "MEMBER_04", "존재하지 않는 회원입니다."),
-    EXIST_MEMBER_ID(HttpStatus.BAD_REQUEST, "MEMBER_05", "이미 존재하는 아이디입니다.");
+    EXIST_MEMBER_ID(HttpStatus.BAD_REQUEST, "MEMBER_05", "이미 존재하는 아이디입니다."),
 
+
+    /**
+     * 데이터
+     */
+
+    DATA_NOT_FOUND(HttpStatus.BAD_REQUEST, "1001","데이터를 찾을 수 없습니다."),
+    DUPLICATE_KEY(HttpStatus.BAD_REQUEST, "1002","중복된 키 값이 존재합니다."),
+    WRONG_REQUEST_DATA(HttpStatus.BAD_REQUEST, "1003", "요청 데이터가 올바르지 않습니다."),
+    DATA_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "1004", "중복된 데이터가 이미 존재합니다.");
     ExceptionCode(HttpStatus httpStatus, String errorCode, String message) {
         this.httpStatus = httpStatus;
         this.errorCode = errorCode;

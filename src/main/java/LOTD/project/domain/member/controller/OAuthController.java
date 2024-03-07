@@ -35,7 +35,7 @@ public class OAuthController {
     @GetMapping("/oauth/kakao/login")
     public ResponseEntity<?> kakaoLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
         LoginResponse kakaoLoginResponse = kakaoService.kakaoLogin(code,response);
-        if (kakaoLoginResponse.getId() == null) {
+        if (kakaoLoginResponse.getMemberId() == null) {
             KakaoInfo kakaoInfo = kakaoService.getMemberInfoToSend(kakaoLoginResponse.getAccessToken());
             return ResponseEntity.ok().body(kakaoInfo);
         }
@@ -48,7 +48,7 @@ public class OAuthController {
     @GetMapping("/oauth/naver/login")
     public ResponseEntity<?> naverLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
         LoginResponse naverLoginResponse = naverService.naverLogin(code,response);
-        if (naverLoginResponse.getId() == null) {
+        if (naverLoginResponse.getMemberId() == null) {
             NaverInfo naverInfo = naverService.getMemberInfoToSend(naverLoginResponse.getAccessToken());
             return ResponseEntity.ok().body(naverInfo);
         }
@@ -60,7 +60,7 @@ public class OAuthController {
     @GetMapping("/oauth/google/login")
     public ResponseEntity<?> googleLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
         LoginResponse googleLoginResponse = googleService.googleLogin(code,response);
-        if (googleLoginResponse.getId() == null) {
+        if (googleLoginResponse.getMemberId() == null) {
             GoogleInfo googleInfo = googleService.getMemberInfoToSend(googleLoginResponse.getAccessToken());
             return ResponseEntity.ok().body(googleInfo);
         }
@@ -76,17 +76,17 @@ public class OAuthController {
      * @param response
      * @return
      */
-    @PostMapping("/oauth/kakao/nickname")
+    @PostMapping("/oauth/kakao/signup")
     public ResponseEntity<?> kakaoSignUpAndLogin(@RequestBody @Valid KakaoSignUpRequest kakaoSigUpRequest, HttpServletResponse response) {
         return ResponseEntity.ok().body(kakaoService.kakaoSignUpAndLogin(kakaoSigUpRequest,response));
     }
 
-    @PostMapping("/oauth/naver/nickname")
+    @PostMapping("/oauth/naver/signup")
     public ResponseEntity<?> naverSignUpAndLogin(@RequestBody @Valid NaverSignUpRequest naverSignUpRequest, HttpServletResponse response) {
         return ResponseEntity.ok().body(naverService.naverSignUpAndLogin(naverSignUpRequest,response));
     }
 
-    @PostMapping("/oauth/google/nickname")
+    @PostMapping("/oauth/google/signup")
     public ResponseEntity<?> googleSignUpAndLogin(@RequestBody @Valid GoogleSignUpRequest googleSignUpRequest, HttpServletResponse response) {
         return ResponseEntity.ok().body(googleService.googleSignUpAndLogin(googleSignUpRequest,response));
     }

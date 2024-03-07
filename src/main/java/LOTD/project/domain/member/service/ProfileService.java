@@ -26,8 +26,8 @@ public class ProfileService {
      * 회원정보 수정 ( 닉네임 ,나이 등 )
      * @param memberUpdateNickNameRequest
      */
-    public void updateMemberNickName(MemberUpdateNickNameRequest memberUpdateNickNameRequest, Long id){
-        Member member = memberRepository.findById(id).orElse(null);
+    public void updateMemberNickName(MemberUpdateNickNameRequest memberUpdateNickNameRequest, String memberId){
+        Member member = memberRepository.findByMemberId(memberId).orElse(null);
 
         if (memberUpdateNickNameRequest.getNickName() != null){
             member.updateNickname(memberUpdateNickNameRequest.getNickName());
@@ -35,8 +35,8 @@ public class ProfileService {
 
     }
 
-    public void updateMemberEmail(MemberUpdateEmailRequest memberUpdateEmailRequest, Long id){
-        Member member = memberRepository.findById(id).orElse(null);
+    public void updateMemberEmail(MemberUpdateEmailRequest memberUpdateEmailRequest, String memberId){
+        Member member = memberRepository.findByMemberId(memberId).orElse(null);
 
         if (memberUpdateEmailRequest.getEmail() != null){
             member.updateEmail(memberUpdateEmailRequest.getEmail());
@@ -49,8 +49,8 @@ public class ProfileService {
      * @param asIsPassword
      * @param toBePassword
      */
-    public void changePassword(String asIsPassword, String toBePassword, Long id) {
-        Member member = memberRepository.findById(id).orElse(null);
+    public void changePassword(String asIsPassword, String toBePassword, String memberId) {
+        Member member = memberRepository.findByMemberId(memberId).orElse(null);
 
         if (member != null) {
             if (!member.matchPassword(passwordEncoder,asIsPassword)){
@@ -64,8 +64,8 @@ public class ProfileService {
      * 회원 탈퇴
      */
 
-    public void delMember(String checkPassword, Long id){
-        Member member = memberRepository.findById(id).orElse(null);
+    public void deleteMember(String checkPassword, String memberId){
+        Member member = memberRepository.findByMemberId(memberId).orElse(null);
 
         if (member != null) {
             if (!member.matchPassword(passwordEncoder, checkPassword)) {
@@ -83,8 +83,8 @@ public class ProfileService {
 
     }
 
-    public void deleteSocialMember(Long id){
-        Member member = memberRepository.findById(id).orElse(null);
+    public void deleteSocialMember(String memberId){
+        Member member = memberRepository.findByMemberId(memberId).orElse(null);
 
         if (member != null) {
 
@@ -101,8 +101,8 @@ public class ProfileService {
     }
 
 
-    public MyPageResponse myPage(Long id){
-        Member member = memberRepository.findById(id).orElse(null);
+    public MyPageResponse myPage(String memberId){
+        Member member = memberRepository.findByMemberId(memberId).orElse(null);
 
         if (member == null) {
             throw new BaseException(ExceptionCode.NOT_EXIST_MEMBER);

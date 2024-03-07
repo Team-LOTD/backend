@@ -88,7 +88,7 @@ public class MemberService {
 
             redisService.setRefreshToken(member.getMemberId(), loginResponse.getRefreshToken()); // refreshToken redis에 저장
                return LoginResponse.builder()
-                       .id(member.getId())
+                       .memberId(member.getMemberId())
                        .grantType(loginResponse.getGrantType())
                        .accessToken(loginResponse.getAccessToken())
                        .accessTokenExpiresIn(loginResponse.getAccessTokenExpiresIn())
@@ -105,7 +105,6 @@ public class MemberService {
 
         // RefreshToken을 Redis에서 삭제
         redisService.delRefreshToken(jwtService.getMemberId(accessToken));
-        System.out.println("d" + redisService.getRefreshToken(jwtService.getMemberId(accessToken)));
         // SecurityContextHolder에 있는 Authentication 정보도 삭제해준다.
         SecurityContextHolder.clearContext();
     }

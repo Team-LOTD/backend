@@ -32,7 +32,7 @@ public class MemberController {
     /**
      * 회원가입 시 아이디 중복 여부 판단
      */
-    @GetMapping("/memberId/check")
+    @GetMapping("/memberid/check")
     public ResponseEntity<?> checkMemberId(@RequestParam String memberId) {
         boolean isDuplicated = false;
         isDuplicated = memberService.checkMemberId(memberId);

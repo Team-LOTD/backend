@@ -152,17 +152,14 @@ public class JwtService {
 
     public String getAccessToken(HttpServletRequest request) {
         String authorizationHeader = request.getHeader("Authorization");
-        System.out.println("헤더, " + authorizationHeader);
         
         if(authorizationHeader != null && !authorizationHeader.equals("")){
             if (authorizationHeader.startsWith("Bearer") && authorizationHeader.length() > 7) {
-                System.out.println("엑세스 탐 ");;
                 String accessToken = authorizationHeader.substring(7); // accesstoken 추출
                 return accessToken;
             }
         }
 
-        System.out.println("안탐");
         return null; // 헤더 비어있으면 null 리턴
     }
 
@@ -181,7 +178,6 @@ public class JwtService {
                 throw new BaseException(ExceptionCode.ALL_TOKEN_EXPIRED);
             }
         }
-        System.out.println("리프레쉬안탐");
         return null; // 헤더 비어있으면 null 리턴
     }
 

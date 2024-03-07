@@ -71,7 +71,7 @@ public class GoogleService {
         jwtService.setHeaderRefreshToken(response, loginResponse.getRefreshToken());
 
         return LoginResponse.builder()
-                .id(member.getId())
+                .memberId(member.getMemberId())
                 .grantType(loginResponse.getGrantType())
                 .accessToken(loginResponse.getAccessToken())
                 .accessTokenExpiresIn(loginResponse.getAccessTokenExpiresIn())
@@ -110,7 +110,7 @@ public class GoogleService {
             jwtService.setHeaderRefreshToken(response, loginResponse.getRefreshToken());
 
             return LoginResponse.builder()
-                    .id(member.getId())
+                    .memberId(member.getMemberId())
                     .grantType(loginResponse.getGrantType())
                     .accessToken(loginResponse.getAccessToken())
                     .accessTokenExpiresIn(loginResponse.getAccessTokenExpiresIn())

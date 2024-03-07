@@ -65,9 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         /** AT가 null 이 아닌 경우 */
         if(accessToken != null && jwtService.validateToken(accessToken, request)) { // 1. 토큰이 헤더에 실려왔는지, 토큰이 유효한 토큰인지 확인
-            System.out.println("유효는 함 ");
             if (!jwtService.checkAccessTokenInBlackList(request,accessToken)) { // 2. 사용자가 로그아웃해서 블랙리스트에 있는 토큰인지 확인
-                System.out.println("블랙리스트 아님 ");
                 // accessToken이 유효하면 Context에 Authentication 저장
                     SecurityContextHolder.getContext().setAuthentication(jwtService.getAuthentication(accessToken));
                 }
@@ -88,7 +86,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 this.setAuthentication(loginResponse.getAccessToken());
             } else {
-                System.out.println("엥엥");
                 request.setAttribute("exception",new BaseException(ExceptionCode.ALL_TOKEN_EXPIRED));// 인증 토큰이 없음
                 throw new BaseException(ExceptionCode.ALL_TOKEN_EXPIRED);
             }

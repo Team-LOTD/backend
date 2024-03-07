@@ -15,7 +15,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "members")
+@Table(name = "member")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -24,23 +24,23 @@ import java.util.List;
 public class Member implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id; // pk
-
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, name = "MEMBER_ID", unique = true)
     private String memberId; // 회원 ID
 
+    @Column(name = "PASSWORD")
     private String password; // 패스워드
 
-    @Column(nullable = false, name = "nickName", length = 20)
+    @Column(nullable = false, name = "NICKNAME", length = 20)
     private String nickName; // 닉네임
 
+    @Column(name = "EMAIL")
     private String email; // 이메일
 
+    @Column(name = "SOCIAL_TYPE")
     @Enumerated(EnumType.STRING)
     private SocialType socialType; // KAKAO, NAVER, GOOGLE
 
+    @Column(name = "ROLE")
     @Enumerated(EnumType.STRING)
     private Role role;
 
