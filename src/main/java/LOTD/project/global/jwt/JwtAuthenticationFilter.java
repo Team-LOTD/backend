@@ -24,7 +24,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
     private final List<String> EXCLUDE_URL_PATTERN = List.of(
-            "/signup", "/login", "/logout", "/memberId/check", "/nickname/check", "/oauth/**"
+            "/signup", "/login", "/logout", "/memberId/check", "/nicknames/check", "/oauth/**",
+            "/swagger-ui/**","/v3/api-docs/**"
     );
 
     @Override
