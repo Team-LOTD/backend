@@ -8,18 +8,24 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 
 @EntityListeners(AuditingEntityListener.class)
-@MappedSuperclass
+
 @Getter
-public class BaseEntity extends BaseTimeEntity{
+@MappedSuperclass
+public abstract class BaseEntity extends BaseTimeEntity {
 
     @CreatedBy
-    @Column(updatable = false)
-    private String creator;
+    @JoinColumn(updatable = false)
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "Creator")
+    private String creator;                // 생성자
 
     @LastModifiedBy
-    private String updator;
+    //@ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "updater")
+    private String updater;                // 수정자
 
 }

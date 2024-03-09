@@ -12,18 +12,17 @@ import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-@EntityListeners(AuditingEntityListener.class)
-@MappedSuperclass
 @Getter
-@ToString
-public class BaseTimeEntity {
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
+public abstract class BaseTimeEntity {
 
     @CreatedDate
-    @Column(updatable = false)
-    private LocalDateTime createdDate;
+    @Column(nullable = false, updatable = false, name = "CREATE_DTM")
+    private LocalDateTime createDateTime;   // 생성일시
 
     @LastModifiedDate
-    private LocalDateTime updateDate;
-
+    @Column(nullable = false, name = "UPDATE_DTM")
+    private LocalDateTime updateDateTime;   // 수정일시
 
 }
