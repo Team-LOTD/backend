@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-public class CategoryController {
+public class CategoryController implements CategoryControllerDoc{
 
     private final CategoryService categoryService;
 

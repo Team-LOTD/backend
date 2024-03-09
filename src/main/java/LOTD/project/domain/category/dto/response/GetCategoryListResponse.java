@@ -18,4 +18,5 @@ public class GetCategoryListResponse {
         private Long categoryId;
         private String categoryName;
     }
+
 }

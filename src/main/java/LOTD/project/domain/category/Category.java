@@ -3,7 +3,6 @@ package LOTD.project.domain.category;
 import LOTD.project.domain.post.Post;
 import LOTD.project.global.audit.BaseEntity;
 import lombok.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
