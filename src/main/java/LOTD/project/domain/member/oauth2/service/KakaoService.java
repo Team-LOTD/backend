@@ -56,7 +56,7 @@ public class KakaoService {
         Member member = Member.builder()
                 .memberId(kakaoSignUpRequest.getKakaoMemberId())
                 .password(UUID.randomUUID().toString())
-                .nickName(kakaoSignUpRequest.getNickName())
+                .nickname(kakaoSignUpRequest.getNickname())
                 .email(kakaoSignUpRequest.getEmail())
                 .role(Role.MEMBER)
                 .socialType(SocialType.KAKAO)

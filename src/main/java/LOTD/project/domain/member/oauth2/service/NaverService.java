@@ -57,7 +57,7 @@ public class NaverService {
         Member member = Member.builder()
                 .memberId(naverSignUpRequest.getNaverMemberId())
                 .password(UUID.randomUUID().toString())
-                .nickName(naverSignUpRequest.getNickName())
+                .nickname(naverSignUpRequest.getNickname())
                 .email(naverSignUpRequest.getEmail())
                 .role(Role.MEMBER)
                 .socialType(SocialType.NAVER)

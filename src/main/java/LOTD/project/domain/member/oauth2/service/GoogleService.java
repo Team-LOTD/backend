@@ -54,7 +54,7 @@ public class GoogleService {
         Member member = Member.builder()
                 .memberId(googleSignUpRequest.getGoogleMemberId())
                 .password(UUID.randomUUID().toString())
-                .nickName(googleSignUpRequest.getNickName())
+                .nickname(googleSignUpRequest.getNickname())
                 .email(googleSignUpRequest.getEmail())
                 .role(Role.MEMBER)
                 .socialType(SocialType.GOOGLE)
