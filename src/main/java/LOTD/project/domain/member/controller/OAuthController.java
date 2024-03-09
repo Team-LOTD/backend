@@ -23,7 +23,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-public class OAuthController {
+public class OAuthController implements OAuthControllerDoc {
 
     private final BaseResponse baseResponse;
     private final KakaoService kakaoService;
@@ -68,7 +68,6 @@ public class OAuthController {
             return baseResponse.success(HttpStatus.OK,googleLoginResponse,"로그인에 성공했습니다.");
         }
     }
-
 
     /**
      * 카카오 회원가입(로그인) 첫 로그인 시만 진행
