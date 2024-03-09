@@ -1,9 +1,9 @@
 package LOTD.project.domain.post.dto.response;
 
-import LOTD.project.domain.comment.Comment;
-import LOTD.project.domain.comment.dto.response.GetCommentReplyListResponse;
+import LOTD.project.domain.comment.dto.response.GetCommentListResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -15,6 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class GetPostResponse {
 
     private Long postId;
@@ -28,6 +29,6 @@ public class GetPostResponse {
     private Long hits;
     private String creator;
     private LocalDateTime CreatedDate;
-    private List<GetCommentReplyListResponse> commentReplyList;
+    private List<GetCommentListResponse> commentList;
 
 }

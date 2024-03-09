@@ -7,5 +7,4 @@ public class DeletePostRequest {
 
     private Long postId;
     private String memberId;
-
 }

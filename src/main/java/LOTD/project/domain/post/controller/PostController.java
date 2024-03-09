@@ -15,13 +15,13 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-public class PostController {
+public class PostController implements PostControllerDoc{
 
     private final PostService postService;
 
 
     @GetMapping("/boards")
-    public ResponseEntity<GetBoardResponse> getBoardList(@RequestParam(name = "searchType") String searchType,
+    public ResponseEntity<GetBoardResponse> getBoardList(@RequestParam(name = "search_type") String searchType,
                                                          @RequestParam(name = "text") String text) {
         return ResponseEntity.ok(postService.getBoardList(searchType,text));
     }

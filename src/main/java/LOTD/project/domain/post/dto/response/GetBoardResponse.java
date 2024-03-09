@@ -15,7 +15,6 @@ import java.util.List;
 public class GetBoardResponse {
 
     List<InnerGetBoard> getBoardListList = new ArrayList<>();
-
     @Getter
     @Builder
     public static class InnerGetBoard {
@@ -26,7 +25,7 @@ public class GetBoardResponse {
         private Long commentsCount;
         private Long hits;
         private String creator;
-        private LocalDateTime createdDate;
+        private LocalDateTime createdDateTime;
 
     }
 

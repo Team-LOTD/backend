@@ -7,7 +7,6 @@ import javax.validation.constraints.NotBlank;
 @Getter
 public class UpdatePostRequest {
 
-
     @NotBlank
     private String title;
 

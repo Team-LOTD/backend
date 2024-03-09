@@ -3,7 +3,7 @@ package LOTD.project.domain.post.service;
 
 import LOTD.project.domain.category.Category;
 import LOTD.project.domain.category.repository.CategoryRepository;
-import LOTD.project.domain.comment.dto.response.GetCommentReplyListResponse;
+import LOTD.project.domain.comment.dto.response.GetCommentListResponse;
 import LOTD.project.domain.member.Member;
 import LOTD.project.domain.member.repository.MemberRepository;
 import LOTD.project.domain.post.Post;
@@ -41,11 +41,15 @@ public class PostService {
         }
         else {
             if (searchType.equals("creator")) {
-                postList = postRepository.findAllByCreator(text);
+                postList = postRepository.findAllByCreatorContains(text);
             }
-            else {
+            else if (searchType.equals("content")){
                 postList = postRepository.findAllByContentContains(text);
             }
+            else {
+                postList = postRepository.findAllByTitleContains(text);
+            }
+
         }
 
         List<GetBoardResponse.InnerGetBoard> response = new ArrayList<>();
@@ -59,7 +63,7 @@ public class PostService {
                         .commentsCount(data.getCommentsCount())
                         .hits(data.getHits())
                         .creator(data.getCreator())
-                        .createdDate(data.getCreatedDate())
+                        .createdDateTime(data.getCreateDateTime())
                         .build())
                 .collect(Collectors.toList());
 
@@ -86,7 +90,7 @@ public class PostService {
                 .commentsCount(post.getCommentsCount())
                 .likeCount(post.getLikeCount())
                 .hits(post.getHits())
-                .commentReplyList(post.getComment().stream().map(GetCommentReplyListResponse::new).collect(Collectors.toList()))
+                .commentList(post.getComment().stream().map(GetCommentListResponse::new).collect(Collectors.toList()))
                 .build();
 
     }

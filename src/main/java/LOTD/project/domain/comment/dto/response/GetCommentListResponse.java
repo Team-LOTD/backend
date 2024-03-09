@@ -1,22 +1,21 @@
 package LOTD.project.domain.comment.dto.response;
 
 import LOTD.project.domain.comment.Comment;
-import LOTD.project.domain.comment.Reply;
 
 import java.util.List;
 
-public class GetCommentReplyListResponse {
+public class GetCommentListResponse {
 
     private Long commentId;
 
+    private Long parentCommentId;
+
     private String content;
 
-    private List<Reply> reply;
-
-    public GetCommentReplyListResponse(Comment comment) {
+    public GetCommentListResponse(Comment comment) {
         this.commentId = comment.getCommentId();
+        this.parentCommentId = comment.getParentCommentId();
         this.content = comment.getContent();
-        this.reply = comment.getReply();
     }
 
 }

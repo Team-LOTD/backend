@@ -13,7 +13,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAll();
 
-    List<Post> findAllByCreator(String creator); // 작성자로 검색
+    List<Post> findAllByCreatorContains(String creator); // 작성자로 검색
 
 
     List<Post> findAllByTitleContains(String text); // 제목 + 내용으로 검색
