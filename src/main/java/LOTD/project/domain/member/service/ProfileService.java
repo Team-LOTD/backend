@@ -2,7 +2,7 @@ package LOTD.project.domain.member.service;
 
 import LOTD.project.domain.member.Member;
 import LOTD.project.domain.member.dto.request.MemberUpdateEmailRequest;
-import LOTD.project.domain.member.dto.request.MemberUpdateNickNameRequest;
+import LOTD.project.domain.member.dto.request.MemberUpdateNicknameRequest;
 import LOTD.project.domain.member.dto.response.MyPageResponse;
 import LOTD.project.domain.member.repository.MemberRepository;
 import LOTD.project.global.exception.BaseException;
@@ -24,13 +24,13 @@ public class ProfileService {
     private final RedisService redisService;
     /**
      * 회원정보 수정 ( 닉네임 ,나이 등 )
-     * @param memberUpdateNickNameRequest
+     * @param
      */
-    public void updateMemberNickName(MemberUpdateNickNameRequest memberUpdateNickNameRequest, String memberId){
+    public void updateMemberNickname(MemberUpdateNicknameRequest memberUpdateNicknameRequest, String memberId){
         Member member = memberRepository.findByMemberId(memberId).orElse(null);
 
-        if (memberUpdateNickNameRequest.getNickName() != null){
-            member.updateNickname(memberUpdateNickNameRequest.getNickName());
+        if (memberUpdateNicknameRequest.getNickname() != null){
+            member.updateNickname(memberUpdateNicknameRequest.getNickname());
         }
 
     }
@@ -110,7 +110,7 @@ public class ProfileService {
         else {
             return MyPageResponse.builder()
                     .memberId(member.getMemberId())
-                    .nickName(member.getNickName())
+                    .nickname(member.getNickname())
                     .email(member.getEmail())
                     .socialType(member.getSocialType())
                     .build();

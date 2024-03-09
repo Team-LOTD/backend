@@ -3,6 +3,7 @@ package LOTD.project.domain.member.controller;
 import LOTD.project.domain.member.dto.request.*;
 import LOTD.project.domain.member.dto.response.MyPageResponse;
 import LOTD.project.domain.member.service.ProfileService;
+import LOTD.project.domain.post.controller.PostControllerDoc;
 import LOTD.project.global.exception.BaseException;
 import LOTD.project.global.exception.ExceptionCode;
 import LOTD.project.global.response.BaseResponse;
@@ -17,14 +18,14 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-public class ProfileController {
+public class ProfileController implements ProfileControllerDoc {
 
 
     private final ProfileService profileService;
     private final BaseResponse baseResponse;
 
     @PutMapping("/members/nicknames")
-    public ResponseEntity<?> updateMemberNickName(@RequestBody @Valid MemberUpdateNickNameRequest memberUpdateNickNameRequest ,BindingResult bindingResult,
+    public ResponseEntity<?> updateMemberNickname(@RequestBody @Valid MemberUpdateNicknameRequest memberUpdateNicknameRequest ,BindingResult bindingResult,
                                                   @RequestParam(name = "member_id") String memberId) throws Exception {
 
         // 유효성 검사를 통과하지 못한 경우 바로 에러 메시지 반환
@@ -32,10 +33,9 @@ public class ProfileController {
             return baseResponse.fail(HttpStatus.BAD_REQUEST, "닉네임은 특수문자를 제외한 2~20자리로 입력해주세요");
         }
 
-        profileService.updateMemberNickName(memberUpdateNickNameRequest, memberId);
+        profileService.updateMemberNickname(memberUpdateNicknameRequest, memberId);
         return baseResponse.success(HttpStatus.OK,"닉네임이 정상적으로 수정되었습니다.");
     }
-
 
     @PutMapping("/members/emails")
     public ResponseEntity<?> updateMemberEmail(@RequestBody @Valid MemberUpdateEmailRequest memberUpdateEmailRequest, BindingResult bindingResult,
@@ -49,7 +49,6 @@ public class ProfileController {
         profileService.updateMemberEmail(memberUpdateEmailRequest, memberId);
         return baseResponse.success(HttpStatus.OK,"이메일이 정상적으로 수정되었습니다.");
     }
-
 
     @PutMapping("/members/passwords")
     public ResponseEntity<?> changePassword(@RequestBody @Valid ChangePasswordRequest changePasswordRequest, BindingResult bindingResult,
