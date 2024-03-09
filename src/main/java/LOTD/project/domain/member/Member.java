@@ -31,7 +31,7 @@ public class Member implements UserDetails {
     private String password; // 패스워드
 
     @Column(nullable = false, name = "NICKNAME", length = 20)
-    private String nickName; // 닉네임
+    private String nickname; // 닉네임
 
     @Column(name = "EMAIL")
     private String email; // 이메일
@@ -60,8 +60,8 @@ public class Member implements UserDetails {
     }
 
     // 닉네임 변경
-    public void updateNickname(String nickName){
-        this.nickName = nickName;
+    public void updateNickname(String nickname){
+        this.nickname = nickname;
     }
 
     // 이메일 변경

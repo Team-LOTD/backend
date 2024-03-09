@@ -37,7 +37,7 @@ public class MemberService {
 
 
     public boolean checkNickname(String nickname) {
-        if (memberRepository.findByNickName(nickname).isPresent()){
+        if (memberRepository.findByNickname(nickname).isPresent()){
             return false;
         }
         else{
@@ -52,7 +52,7 @@ public class MemberService {
      */
 
     @Transactional
-    public Member signUp(MemberSignUpRequest memberSignUpRequest) throws Exception {
+    public Member signUp(MemberSignUpRequest memberSignUpRequest) {
 
         if (memberRepository.findByMemberId(memberSignUpRequest.getMemberId()).isPresent()){
             throw new BaseException(ExceptionCode.EXIST_MEMBER_ID);
@@ -61,7 +61,7 @@ public class MemberService {
         Member member = Member.builder()
                 .memberId(memberSignUpRequest.getMemberId())
                 .password(memberSignUpRequest.getPassword())
-                .nickName(memberSignUpRequest.getNickName())
+                .nickname(memberSignUpRequest.getNickname())
                 .email(memberSignUpRequest.getEmail())
                 .role(Role.MEMBER)
                 .socialType(null)
@@ -99,7 +99,7 @@ public class MemberService {
             }
     }
 
-    public void logout(String accessToken) throws Exception {
+    public void logout(String accessToken) {
         // AccessToken을 블랙리스트에 추가
         redisService.addToBlacklist(accessToken);
 

@@ -23,7 +23,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-public class MemberController {
+public class MemberController implements MemberControllerDoc{
 
     private final MemberService memberService;
     private final JwtService jwtService;
@@ -48,7 +48,7 @@ public class MemberController {
     /**
      * 회원가입 시 닉네임 중복 여부 판단
      */
-    @GetMapping("/nickname/check")
+    @GetMapping("/nicknames/check")
     public ResponseEntity<?> checkNickname(@RequestParam String nickname) {
         boolean isDuplicated = false;
         isDuplicated = memberService.checkNickname(nickname);
@@ -63,10 +63,10 @@ public class MemberController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@RequestBody @Valid MemberSignUpRequest memberSignUpRequest, BindingResult bindingResult) throws Exception {
+    public ResponseEntity<?> signUp(@RequestBody @Valid MemberSignUpRequest memberSignUpRequest, BindingResult bindingResult) {
 
         try {
-            if (!memberSignUpRequest.isMemberIdChecked() || !memberSignUpRequest.isNickNameChecked()) {
+            if (!memberSignUpRequest.isMemberIdChecked() || !memberSignUpRequest.isNicknameChecked()) {
                 return baseResponse.fail(HttpStatus.BAD_REQUEST, "아이디 또는 닉네임 중복확인을 해야합니다.");
             }
 
@@ -114,7 +114,7 @@ public class MemberController {
     }
 
     @GetMapping("/logout")
-    public ResponseEntity<?> logout(HttpServletRequest request) throws Exception {
+    public ResponseEntity<?> logout(HttpServletRequest request) {
         String accessToken = jwtService.getAccessToken(request);
         memberService.logout(accessToken);
         return baseResponse.success(HttpStatus.OK,"로그아웃 되었습니다.");

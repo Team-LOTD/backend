@@ -10,7 +10,7 @@ public class MemberSignUpRequest {
 
 
     private boolean memberIdChecked;
-    private boolean nickNameChecked;
+    private boolean nicknameChecked;
 
     @NotBlank(message = "아이디는 필수 입력 값입니다.")
     @Pattern(regexp = "^[a-zA-Z0-9@]{4,25}$", message = "아이디는 알파벳 대소문자 혹은 숫자 혹은 @로만 이루어지면서, 4~25자 내외로 입력해주세요.")
@@ -28,7 +28,7 @@ public class MemberSignUpRequest {
 
     @NotBlank(message = "닉네임은 필수 입력 값입니다.")
     @Pattern(regexp = "^[가-힣a-zA-Z0-9]{2,20}$", message = "닉네임은 특수문자를 제외한 2~20자리로 입력해주세요")
-    private String nickName;
+    private String nickname;
 
     @Size(max = 35, message = "이메일은 35자리 이하로 입력해주세요")
     @Pattern(regexp = "(^\\w+@\\w+\\.\\w+(\\.\\w+)?$)|", message = "올바르지 않은 이메일 형식입니다.")

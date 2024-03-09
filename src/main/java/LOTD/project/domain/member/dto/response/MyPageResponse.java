@@ -11,7 +11,7 @@ import lombok.Getter;
 public class MyPageResponse {
 
     private String memberId;
-    private String nickName;
+    private String nickname;
     private String email;
     private SocialType socialType;
 

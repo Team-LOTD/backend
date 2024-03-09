@@ -11,14 +11,14 @@ import lombok.Setter;
 public class MemberSignUpResponse extends BaseResponse {
 
     private String memberId;
-    private String nickName;
+    private String nickname;
     private String email;
 
     public static MemberSignUpResponse of(Member member) {
 
         MemberSignUpResponse memberSignUpResponse = new MemberSignUpResponse();
         memberSignUpResponse.setMemberId(member.getMemberId());
-        memberSignUpResponse.setNickName(member.getNickName());
+        memberSignUpResponse.setNickname(member.getNickname());
         memberSignUpResponse.setEmail(member.getEmail());
 
         return memberSignUpResponse;
