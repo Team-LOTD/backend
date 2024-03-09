@@ -40,7 +40,8 @@ public class SecurityConfig {
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     private static final String[] PERMIT_URL = {
-            "/signup", "/login", "/logout", "/memberId/check", "/nickname/check", "/oauth/**"
+            "/signup", "/login", "/logout", "/memberid/check", "/nicknames/check", "/oauth/**",
+            "/swagger-ui/**","/v3/api-docs/**"
     };
 
     @Bean
