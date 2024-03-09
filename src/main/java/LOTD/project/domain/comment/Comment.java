@@ -22,9 +22,11 @@ public class Comment extends BaseEntity {
     @Column(name = "COMMENT_ID")
     private Long commentId;
 
+    @Column(name = "PARENT_COMMENT_ID")
+    private Long parentCommentId;
+
     @Column(name = "CONTENT")
     private String content;
-
 
     @ManyToOne
     @JoinColumn(name = "POST_ID")
@@ -34,9 +36,8 @@ public class Comment extends BaseEntity {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private List<Reply> reply;
-
-
+    public void updateComment(String content) {
+        this.content = content;
+    }
 
 }

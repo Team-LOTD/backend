@@ -11,7 +11,6 @@ public class GetCommentListResponse {
     private Long parentCommentId;
 
     private String content;
-
     public GetCommentListResponse(Comment comment) {
         this.commentId = comment.getCommentId();
         this.parentCommentId = comment.getParentCommentId();
