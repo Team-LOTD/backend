@@ -19,10 +19,4 @@ public class CreatePostRequest {
     private String content;
     private String image;
 
-    private Long commentsCount;
-
-    private Long likeCount;
-
-    private Long hits;
-
 }
