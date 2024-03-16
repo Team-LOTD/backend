@@ -8,10 +8,9 @@ import javax.validation.constraints.NotBlank;
 @Getter
 public class CreateCommentRequest {
 
-    private String parentCommentId;
+    private Long parentCommentId;
     private String content;
 
-    @NotBlank
     private Long postId;
 
     @NotBlank

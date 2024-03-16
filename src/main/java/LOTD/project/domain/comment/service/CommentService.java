@@ -4,10 +4,11 @@ import LOTD.project.domain.comment.Comment;
 import LOTD.project.domain.comment.dto.request.CreateCommentRequest;
 import LOTD.project.domain.comment.dto.request.UpdateCommentRequest;
 import LOTD.project.domain.comment.dto.response.CreateCommentResponse;
-import LOTD.project.domain.comment.dto.response.GetCommentListResponse;
 import LOTD.project.domain.comment.repository.CommentRepository;
 import LOTD.project.domain.member.Member;
 import LOTD.project.domain.member.repository.MemberRepository;
+import LOTD.project.domain.post.Post;
+import LOTD.project.domain.post.repository.PostRepository;
 import LOTD.project.global.exception.BaseException;
 import LOTD.project.global.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final MemberRepository memberRepository;
+    private final PostRepository postRepository;
 
     @Transactional
     public CreateCommentResponse createComment(CreateCommentRequest request) {
@@ -27,9 +29,13 @@ public class CommentService {
         Member member = memberRepository.findByMemberId(request.getMemberId())
                 .orElseThrow(() -> new BaseException(ExceptionCode.DATA_NOT_FOUND));
 
+        Post post = postRepository.findByPostId(request.getPostId())
+                .orElseThrow(() -> new BaseException(ExceptionCode.DATA_NOT_FOUND));
+
         Comment comment = Comment.builder()
                 .member(member)
-                .parentCommentId(request.getPostId())
+                .post(post)
+                .parentCommentId(request.getParentCommentId())
                 .content(request.getContent())
                 .build();
 
