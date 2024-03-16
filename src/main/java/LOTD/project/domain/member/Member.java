@@ -3,6 +3,7 @@ package LOTD.project.domain.member;
 
 
 import LOTD.project.domain.member.oauth2.SocialType;
+import LOTD.project.global.audit.BaseEntity;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,7 +22,7 @@ import java.util.List;
 @Getter
 @Builder
 @Setter
-public class Member implements UserDetails {
+public class Member extends BaseEntity implements UserDetails {
 
     @Id
     @Column(nullable = false, name = "MEMBER_ID", unique = true)

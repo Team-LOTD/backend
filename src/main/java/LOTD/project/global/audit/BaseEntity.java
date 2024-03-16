@@ -20,12 +20,12 @@ public abstract class BaseEntity extends BaseTimeEntity {
     @CreatedBy
     @JoinColumn(updatable = false)
     //@ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "Creator")
+    @Column(name = "CREATOR")
     private String creator;                // 생성자
 
     @LastModifiedBy
     //@ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "updater")
+    @Column(name = "UPDATER")
     private String updater;                // 수정자
 
 }
