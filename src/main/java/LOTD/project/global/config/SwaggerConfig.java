@@ -51,5 +51,25 @@ public class SwaggerConfig {
                 .build();
     }
 
+    @Bean
+    public GroupedOpenApi CategoryApi() {
+        final String url = "categories";
+        return GroupedOpenApi.builder()
+                .group(url)
+                .pathsToMatch("/" + url + "/**")
+                .packagesToScan(BASE_PACKAGE + ".category")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi CommentApi() {
+        final String url = "comments";
+        return GroupedOpenApi.builder()
+                .group(url)
+                .pathsToMatch("/" + url + "/**")
+                .packagesToScan(BASE_PACKAGE + ".comment")
+                .build();
+    }
+
 
 }
