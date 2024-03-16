@@ -92,6 +92,7 @@ public class PostService {
                 .hits(post.getHits())
                 .commentList(GetCommentListResponse.builder().commentList(post.getComment().stream()
                         .map(data -> GetCommentListResponse.InnerComment.builder()
+                                .memberId(data.getMember().getMemberId())
                                 .commentId(data.getCommentId())
                                 .parentCommentId(data.getParentCommentId())
                                 .content(data.getContent())
@@ -122,9 +123,6 @@ public class PostService {
                 .title(request.getTitle())
                 .content(request.getContent())
                 .image(request.getImage())
-                .commentsCount(request.getCommentsCount())
-                .likeCount(request.getLikeCount())
-                .hits(request.getHits())
                 .build();
 
         postRepository.save(post);

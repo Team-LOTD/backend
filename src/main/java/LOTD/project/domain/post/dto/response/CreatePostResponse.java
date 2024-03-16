@@ -6,6 +6,7 @@ import lombok.Getter;
 @Builder
 public class CreatePostResponse {
 
+    private Long categoryId;
     private Long postId;
     private String title;
 
