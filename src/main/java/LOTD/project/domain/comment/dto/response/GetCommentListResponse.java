@@ -18,6 +18,7 @@ public class GetCommentListResponse {
     @Builder
     public static class InnerComment {
 
+        private String memberId;
         private Long commentId;
         private Long parentCommentId;
         private String content;
