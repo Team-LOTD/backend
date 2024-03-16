@@ -90,8 +90,19 @@ public class PostService {
                 .commentsCount(post.getCommentsCount())
                 .likeCount(post.getLikeCount())
                 .hits(post.getHits())
-                .commentList(post.getComment().stream().map(GetCommentListResponse::new).collect(Collectors.toList()))
+                .commentList(GetCommentListResponse.builder().commentList(post.getComment().stream()
+                        .map(data -> GetCommentListResponse.InnerComment.builder()
+                                .commentId(data.getCommentId())
+                                .parentCommentId(data.getParentCommentId())
+                                .content(data.getContent())
+                                .build())
+                                .collect(Collectors.toList()))
+                                .build())
                 .build();
+
+
+                //.commentList(post.getComment().stream().map(GetCommentListResponse::new).collect(Collectors.toList()))
+                //.build();
 
     }
 

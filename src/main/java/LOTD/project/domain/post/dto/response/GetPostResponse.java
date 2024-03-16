@@ -29,6 +29,6 @@ public class GetPostResponse {
     private Long hits;
     private String creator;
     private LocalDateTime CreatedDate;
-    private List<GetCommentListResponse> commentList;
+    private GetCommentListResponse commentList;
 
 }
