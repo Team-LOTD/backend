@@ -2,7 +2,6 @@ package LOTD.project.global.exception;
 
 import LOTD.project.global.response.ExceptionResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
@@ -14,8 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
