@@ -27,7 +27,6 @@ public class SwaggerConfig {
                 .security(Collections.singletonList(securityRequirement));
     }
 
-
     /**
      * API Swagger 등록
      */
