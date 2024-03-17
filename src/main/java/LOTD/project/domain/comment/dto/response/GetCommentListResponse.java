@@ -4,6 +4,7 @@ import LOTD.project.domain.comment.Comment;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,18 +20,19 @@ public class GetCommentListResponse {
     public static class InnerComment {
 
         private String memberId;
+        private String creator;
         private Long commentId;
         private Long parentCommentId;
         private String content;
-
+        private LocalDateTime createdDate;
     }
 
 
     /**
-    public GetCommentListResponse(Comment comment) {
-        this.commentId = comment.getCommentId();
-        this.parentCommentId = comment.getParentCommentId();
-        this.content = comment.getContent();
-    }*/
+     public GetCommentListResponse(Comment comment) {
+     this.commentId = comment.getCommentId();
+     this.parentCommentId = comment.getParentCommentId();
+     this.content = comment.getContent();
+     }*/
 
 }
