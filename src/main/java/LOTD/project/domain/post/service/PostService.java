@@ -62,7 +62,7 @@ public class PostService {
                         .title(data.getTitle())
                         .commentsCount(data.getCommentsCount())
                         .hits(data.getHits())
-                        .creator(data.getCreator())
+                        .creator(data.getMember().getNickname())
                         .createdDateTime(data.getCreateDateTime())
                         .build())
                 .collect(Collectors.toList());
@@ -90,20 +90,24 @@ public class PostService {
                 .commentsCount(post.getCommentsCount())
                 .likeCount(post.getLikeCount())
                 .hits(post.getHits())
+                .creator(post.getMember().getNickname())
+                .createdDate(post.getCreateDateTime())
                 .commentList(GetCommentListResponse.builder().commentList(post.getComment().stream()
-                        .map(data -> GetCommentListResponse.InnerComment.builder()
-                                .memberId(data.getMember().getMemberId())
-                                .commentId(data.getCommentId())
-                                .parentCommentId(data.getParentCommentId())
-                                .content(data.getContent())
-                                .build())
+                                .map(data -> GetCommentListResponse.InnerComment.builder()
+                                        .memberId(data.getMember().getMemberId())
+                                        .creator(data.getMember().getNickname())
+                                        .commentId(data.getCommentId())
+                                        .parentCommentId(data.getParentCommentId())
+                                        .content(data.getContent())
+                                        .createdDate(data.getCreateDateTime())
+                                        .build())
                                 .collect(Collectors.toList()))
-                                .build())
+                        .build())
                 .build();
 
 
-                //.commentList(post.getComment().stream().map(GetCommentListResponse::new).collect(Collectors.toList()))
-                //.build();
+        //.commentList(post.getComment().stream().map(GetCommentListResponse::new).collect(Collectors.toList()))
+        //.build();
 
     }
 
@@ -128,6 +132,7 @@ public class PostService {
         postRepository.save(post);
 
         return CreatePostResponse.builder()
+                .categoryId(post.getCategory().getCategoryId())
                 .postId(post.getPostId())
                 .title(post.getTitle())
                 .build();

@@ -28,7 +28,6 @@ public class GetPostResponse {
     private Long likeCount;
     private Long hits;
     private String creator;
-    private LocalDateTime CreatedDate;
+    private LocalDateTime createdDate;
     private GetCommentListResponse commentList;
-
 }

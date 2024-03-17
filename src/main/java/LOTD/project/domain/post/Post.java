@@ -4,6 +4,7 @@ import LOTD.project.domain.comment.Comment;
 import LOTD.project.domain.member.Member;
 import LOTD.project.global.audit.BaseEntity;
 import lombok.*;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,6 +17,7 @@ import java.util.List;
 @Getter
 @Builder
 @Setter
+@DynamicInsert
 public class Post extends BaseEntity {
 
     @Id
