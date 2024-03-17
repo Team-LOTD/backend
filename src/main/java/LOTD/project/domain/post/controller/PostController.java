@@ -7,6 +7,8 @@ import LOTD.project.domain.post.dto.response.CreatePostResponse;
 import LOTD.project.domain.post.dto.response.GetBoardResponse;
 import LOTD.project.domain.post.dto.response.GetPostResponse;
 import LOTD.project.domain.post.service.PostService;
+import LOTD.project.global.exception.BaseException;
+import LOTD.project.global.response.ExceptionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +52,12 @@ public class PostController implements PostControllerDoc{
     }
 
 
+    @ResponseBody
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<ExceptionResponse> ExceptionHandle(BaseException e) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(e.getExceptionCode());
+        return ResponseEntity.status(exceptionResponse.getStatus()).body(exceptionResponse);
+    }
 
 
 

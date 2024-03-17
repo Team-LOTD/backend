@@ -5,6 +5,8 @@ import LOTD.project.domain.comment.dto.request.UpdateCommentRequest;
 import LOTD.project.domain.comment.dto.response.CreateCommentResponse;
 import LOTD.project.domain.comment.dto.response.GetCommentListResponse;
 import LOTD.project.domain.comment.service.CommentService;
+import LOTD.project.global.exception.BaseException;
+import LOTD.project.global.response.ExceptionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +33,13 @@ public class CommentController implements CommentControllerDoc {
     @DeleteMapping("/comments")
     public void deleteComment(@RequestParam(name = "comment_id") Long commentId) {
         commentService.deleteComment(commentId);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<ExceptionResponse> ExceptionHandle(BaseException e) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(e.getExceptionCode());
+        return ResponseEntity.status(exceptionResponse.getStatus()).body(exceptionResponse);
     }
 
 }

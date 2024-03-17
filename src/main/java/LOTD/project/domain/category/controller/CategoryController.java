@@ -5,6 +5,8 @@ import LOTD.project.domain.category.dto.request.UpdateCategoryRequest;
 import LOTD.project.domain.category.dto.response.CreateCategoryResponse;
 import LOTD.project.domain.category.dto.response.GetCategoryListResponse;
 import LOTD.project.domain.category.service.CategoryService;
+import LOTD.project.global.exception.BaseException;
+import LOTD.project.global.response.ExceptionResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +37,13 @@ public class CategoryController implements CategoryControllerDoc{
     @DeleteMapping("/categories")
     public void deleteCategory(@RequestParam(name = "category_id") Long categoryId) {
         categoryService.deleteCategory(categoryId);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(BaseException.class)
+    public ResponseEntity<ExceptionResponse> ExceptionHandle(BaseException e) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(e.getExceptionCode());
+        return ResponseEntity.status(exceptionResponse.getStatus()).body(exceptionResponse);
     }
 
 
