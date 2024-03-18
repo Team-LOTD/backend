@@ -175,6 +175,169 @@
 ![Search_List](https://github.com/Team-LOTD/LOTD/assets/93576045/bda6e80c-86fa-455d-950d-e6b8ad097162)
 </br>
 
+
+### Back-End 소스 코드 폴더 구조
+📦src
+ ┣ 📂main
+ ┃ ┣ 📂java
+ ┃ ┃ ┗ 📂LOTD
+ ┃ ┃ ┃ ┗ 📂project
+ ┃ ┃ ┃ ┃ ┣ 📂domain
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂category
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CategoryControllerDoc.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreateCategoryRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UpdateCategoryRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreateCategoryResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GetCategoryListResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CategoryRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CategoryService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Category.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂comment
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CommentController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentControllerDoc.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreateCommentRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UpdateCommentRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreateCommentResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GetCommentListResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Comment.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂heart
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜HeartController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜HeartControllerDoc.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜HeartClickRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜HeartRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜HeartService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Heart.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂member
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberControllerDoc.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜OAuthController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜OAuthControllerDoc.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProfileController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileControllerDoc.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChangePasswordRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DeleteMemberRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberLoginRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberSignUpRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberUpdateEmailRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MemberUpdateNicknameRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberSignUpResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MyPageResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂oauth2
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GoogleSignUpRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KakaoSignUpRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NaverSignUpRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GoogleInfo.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GoogleToken.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KakaoInfo.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KakaoToken.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜NaverInfo.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NaverToken.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GoogleService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KakaoService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NaverService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SocialType.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MemberRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Member.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Role.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂post
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PostController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PostControllerDoc.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreatePostRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DeletePostRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UpdatePostRequest.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreatePostResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GetBoardResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GetPostResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PostRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PostRepositoryCustom.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PostRepositoryImpl.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PostService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Post.java
+ ┃ ┃ ┃ ┃ ┣ 📂global
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂audit
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseEntity.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseTimeEntity.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜JpaAuditConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜QuerydslConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SecurityConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SwaggerConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseException.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomAccessDeniedHandler.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomAuthenticationEntryPoint.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ExceptionCode.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂jwt
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtAuthenticationFilter.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TokenType.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂redis
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RedisConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RedisService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CustomUserDetailsService.java
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂response
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExceptionResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Status.java
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂util
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SecurityUtil.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜StringUtil.java
+ ┃ ┃ ┃ ┃ ┗ 📜ProjectApplication.java
+ ┃ ┗ 📂resources
+ ┃ ┃ ┣ 📂static
+ ┃ ┃ ┣ 📂templates
+ ┃ ┃ ┣ 📜application-dev.yml
+ ┃ ┃ ┣ 📜application-local.yml
+ ┃ ┃ ┗ 📜application.yml
+ ┗ 📂test
+ ┃ ┗ 📂java
+ ┃ ┃ ┗ 📂LOTD
+ ┃ ┃ ┃ ┗ 📂project
+ ┃ ┃ ┃ ┃ ┗ 📜ProjectApplicationTests.java
+
+
 ## 👥 협업 관리
 </br>
 
