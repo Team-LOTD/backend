@@ -177,165 +177,240 @@
 
 
 ### Back-End 소스 코드 폴더 구조
-📦src
- ┣ 📂main
- ┃ ┣ 📂java
- ┃ ┃ ┗ 📂LOTD
- ┃ ┃ ┃ ┗ 📂project
- ┃ ┃ ┃ ┃ ┣ 📂domain
- ┃ ┃ ┃ ┃ ┃ ┣ 📂category
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CategoryController.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CategoryControllerDoc.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreateCategoryRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UpdateCategoryRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreateCategoryResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GetCategoryListResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CategoryRepository.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CategoryService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Category.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂comment
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CommentController.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentControllerDoc.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreateCommentRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UpdateCommentRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreateCommentResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GetCommentListResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentRepository.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CommentService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Comment.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂heart
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜HeartController.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜HeartControllerDoc.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜HeartClickRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜HeartRepository.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜HeartService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Heart.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂member
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberController.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberControllerDoc.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜OAuthController.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜OAuthControllerDoc.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ProfileController.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileControllerDoc.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChangePasswordRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DeleteMemberRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberLoginRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberSignUpRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberUpdateEmailRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MemberUpdateNicknameRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LoginResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberSignUpResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MyPageResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂oauth2
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GoogleSignUpRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KakaoSignUpRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NaverSignUpRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GoogleInfo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GoogleToken.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KakaoInfo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KakaoToken.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜NaverInfo.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NaverToken.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GoogleService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KakaoService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜NaverService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SocialType.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MemberRepository.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MemberService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ProfileService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Member.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Role.java
- ┃ ┃ ┃ ┃ ┃ ┗ 📂post
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PostController.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PostControllerDoc.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂request
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreatePostRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DeletePostRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UpdatePostRequest.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CreatePostResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GetBoardResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GetPostResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PostRepository.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PostRepositoryCustom.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PostRepositoryImpl.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜PostService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Post.java
- ┃ ┃ ┃ ┃ ┣ 📂global
- ┃ ┃ ┃ ┃ ┃ ┣ 📂audit
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseEntity.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseTimeEntity.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜JpaAuditConfig.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂config
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜QuerydslConfig.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SecurityConfig.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SwaggerConfig.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebConfig.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂exception
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseException.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomAccessDeniedHandler.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomAuthenticationEntryPoint.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ExceptionCode.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂jwt
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtAuthenticationFilter.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜TokenType.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂login
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂service
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂redis
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RedisConfig.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RedisService.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CustomUserDetailsService.java
- ┃ ┃ ┃ ┃ ┃ ┣ 📂response
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜BaseResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExceptionResponse.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Status.java
- ┃ ┃ ┃ ┃ ┃ ┗ 📂util
- ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SecurityUtil.java
- ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜StringUtil.java
- ┃ ┃ ┃ ┃ ┗ 📜ProjectApplication.java
- ┃ ┗ 📂resources
- ┃ ┃ ┣ 📂static
- ┃ ┃ ┣ 📂templates
- ┃ ┃ ┣ 📜application-dev.yml
- ┃ ┃ ┣ 📜application-local.yml
- ┃ ┃ ┗ 📜application.yml
- ┗ 📂test
- ┃ ┗ 📂java
- ┃ ┃ ┗ 📂LOTD
- ┃ ┃ ┃ ┗ 📂project
- ┃ ┃ ┃ ┃ ┗ 📜ProjectApplicationTests.java
+├─.gradle
+│  ├─8.0
+│  │  ├─checksums
+│  │  ├─dependencies-accessors
+│  │  ├─executionHistory
+│  │  ├─fileChanges
+│  │  ├─fileHashes
+│  │  └─vcsMetadata
+│  ├─buildOutputCleanup
+│  └─vcs-1
+├─.idea
+├─build
+│  ├─classes
+│  │  └─java
+│  │      ├─main
+│  │      │  └─LOTD
+│  │      │      └─project
+│  │      │          ├─domain
+│  │      │          │  ├─category
+│  │      │          │  │  ├─controller
+│  │      │          │  │  ├─dto
+│  │      │          │  │  │  ├─request
+│  │      │          │  │  │  └─response
+│  │      │          │  │  ├─repository
+│  │      │          │  │  └─service
+│  │      │          │  ├─comment
+│  │      │          │  │  ├─controller
+│  │      │          │  │  ├─dto
+│  │      │          │  │  │  ├─request
+│  │      │          │  │  │  └─response
+│  │      │          │  │  ├─repository
+│  │      │          │  │  └─service
+│  │      │          │  ├─heart
+│  │      │          │  │  ├─controller
+│  │      │          │  │  ├─dto
+│  │      │          │  │  │  └─request
+│  │      │          │  │  ├─repository
+│  │      │          │  │  └─service
+│  │      │          │  ├─member
+│  │      │          │  │  ├─controller
+│  │      │          │  │  ├─dto
+│  │      │          │  │  │  ├─request
+│  │      │          │  │  │  └─response
+│  │      │          │  │  ├─oauth2
+│  │      │          │  │  │  ├─dto
+│  │      │          │  │  │  │  ├─request
+│  │      │          │  │  │  │  └─response
+│  │      │          │  │  │  └─service
+│  │      │          │  │  ├─repository
+│  │      │          │  │  └─service
+│  │      │          │  └─post
+│  │      │          │      ├─controller
+│  │      │          │      ├─dto
+│  │      │          │      │  ├─request
+│  │      │          │      │  └─response
+│  │      │          │      ├─repository
+│  │      │          │      └─service
+│  │      │          └─global
+│  │      │              ├─audit
+│  │      │              ├─config
+│  │      │              ├─exception
+│  │      │              ├─jwt
+│  │      │              ├─login
+│  │      │              │  └─service
+│  │      │              │      └─redis
+│  │      │              ├─response
+│  │      │              └─util
+│  │      └─test
+│  │          └─LOTD
+│  │              └─project
+│  ├─generated
+│  │  ├─querydsl
+│  │  │  ├─generated
+│  │  │  └─LOTD
+│  │  │      └─project
+│  │  │          ├─domain
+│  │  │          │  ├─category
+│  │  │          │  ├─comment
+│  │  │          │  ├─heart
+│  │  │          │  ├─member
+│  │  │          │  └─post
+│  │  │          └─global
+│  │  │              └─audit
+│  │  └─sources
+│  │      ├─annotationProcessor
+│  │      │  └─java
+│  │      │      ├─main
+│  │      │      └─test
+│  │      └─headers
+│  │          └─java
+│  │              ├─main
+│  │              └─test
+│  ├─libs
+│  ├─reports
+│  │  └─tests
+│  │      └─test
+│  │          ├─classes
+│  │          ├─css
+│  │          ├─js
+│  │          └─packages
+│  ├─resources
+│  │  └─main
+│  │      ├─static
+│  │      └─templates
+│  ├─test-results
+│  │  └─test
+│  │      └─binary
+│  └─tmp
+│      ├─bootJar
+│      ├─compileJava
+│      ├─compileQuerydsl
+│      ├─compileTestJava
+│      ├─jar
+│      └─test
+├─gradle
+│  └─wrapper
+├─out
+│  └─production
+│      ├─classes
+│      │  └─LOTD
+│      │      └─project
+│      │          ├─domain
+│      │          │  ├─category
+│      │          │  │  ├─controller
+│      │          │  │  ├─dto
+│      │          │  │  │  ├─request
+│      │          │  │  │  └─response
+│      │          │  │  ├─repository
+│      │          │  │  └─service
+│      │          │  ├─comment
+│      │          │  │  ├─controller
+│      │          │  │  ├─dto
+│      │          │  │  │  ├─request
+│      │          │  │  │  └─response
+│      │          │  │  ├─repository
+│      │          │  │  └─service
+│      │          │  ├─heart
+│      │          │  │  ├─controller
+│      │          │  │  ├─dto
+│      │          │  │  │  └─request
+│      │          │  │  ├─repository
+│      │          │  │  └─service
+│      │          │  ├─member
+│      │          │  │  ├─controller
+│      │          │  │  ├─dto
+│      │          │  │  │  ├─request
+│      │          │  │  │  └─response
+│      │          │  │  ├─oauth2
+│      │          │  │  │  ├─dto
+│      │          │  │  │  │  ├─request
+│      │          │  │  │  │  └─response
+│      │          │  │  │  └─service
+│      │          │  │  ├─repository
+│      │          │  │  └─service
+│      │          │  └─post
+│      │          │      ├─controller
+│      │          │      ├─dto
+│      │          │      │  ├─request
+│      │          │      │  └─response
+│      │          │      ├─repository
+│      │          │      └─service
+│      │          └─global
+│      │              ├─audit
+│      │              ├─config
+│      │              ├─exception
+│      │              ├─jwt
+│      │              ├─login
+│      │              │  └─service
+│      │              │      └─redis
+│      │              ├─response
+│      │              └─util
+│      └─resources
+└─src
+    ├─main
+    │  ├─java
+    │  │  └─LOTD
+    │  │      └─project
+    │  │          ├─domain
+    │  │          │  ├─category
+    │  │          │  │  ├─controller
+    │  │          │  │  ├─dto
+    │  │          │  │  │  ├─request
+    │  │          │  │  │  └─response
+    │  │          │  │  ├─repository
+    │  │          │  │  └─service
+    │  │          │  ├─comment
+    │  │          │  │  ├─controller
+    │  │          │  │  ├─dto
+    │  │          │  │  │  ├─request
+    │  │          │  │  │  └─response
+    │  │          │  │  ├─repository
+    │  │          │  │  └─service
+    │  │          │  ├─heart
+    │  │          │  │  ├─controller
+    │  │          │  │  ├─dto
+    │  │          │  │  │  └─request
+    │  │          │  │  ├─repository
+    │  │          │  │  └─service
+    │  │          │  ├─member
+    │  │          │  │  ├─controller
+    │  │          │  │  ├─dto
+    │  │          │  │  │  ├─request
+    │  │          │  │  │  └─response
+    │  │          │  │  ├─oauth2
+    │  │          │  │  │  ├─dto
+    │  │          │  │  │  │  ├─request
+    │  │          │  │  │  │  └─response
+    │  │          │  │  │  └─service
+    │  │          │  │  ├─repository
+    │  │          │  │  └─service
+    │  │          │  └─post
+    │  │          │      ├─controller
+    │  │          │      ├─dto
+    │  │          │      │  ├─request
+    │  │          │      │  └─response
+    │  │          │      ├─repository
+    │  │          │      └─service
+    │  │          └─global
+    │  │              ├─audit
+    │  │              ├─config
+    │  │              ├─exception
+    │  │              ├─jwt
+    │  │              ├─login
+    │  │              │  └─service
+    │  │              │      └─redis
+    │  │              ├─response
+    │  │              └─util
+    │  └─resources
+    │      ├─static
+    │      └─templates
+    └─test
+        └─java
+            └─LOTD
+                └─project
 
 
 ## 👥 협업 관리
