@@ -188,5 +188,3 @@
 LOTD 기능명세서 - [LOTD 기능명세서 바로가기](https://oxidized-steam-8cd.notion.site/d6add040a9184e3184c47f1f357c2e65)
 </br>
 LOTD 회의록     - [LOTD 회의록 바로가기](https://oxidized-steam-8cd.notion.site/d7701dda420f4d0cb6eb17fb03e6caff)
-
-## 📋 프로젝트 관련 문서
