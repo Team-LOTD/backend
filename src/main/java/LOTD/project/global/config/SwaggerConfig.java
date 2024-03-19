@@ -27,12 +27,13 @@ public class SwaggerConfig {
                 .security(Collections.singletonList(securityRequirement));
     }
 
+
     /**
      * API Swagger 등록
      */
 
     @Bean
-    public GroupedOpenApi MemberApi() {
+    public GroupedOpenApi memberApi() {
         final String url = "members";
         return GroupedOpenApi.builder()
                 .group(url)
@@ -41,17 +42,17 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public GroupedOpenApi PostApi() {
+    public GroupedOpenApi postApi() {
         final String url = "posts";
         return GroupedOpenApi.builder()
                 .group(url)
-                .pathsToMatch("/" + url + "/**")
+                //.pathsToMatch("/" + url + "/**")
                 .packagesToScan(BASE_PACKAGE + ".post")
                 .build();
     }
 
     @Bean
-    public GroupedOpenApi CategoryApi() {
+    public GroupedOpenApi categoryApi() {
         final String url = "categories";
         return GroupedOpenApi.builder()
                 .group(url)
@@ -61,12 +62,22 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public GroupedOpenApi CommentApi() {
+    public GroupedOpenApi commentApi() {
         final String url = "comments";
         return GroupedOpenApi.builder()
                 .group(url)
                 .pathsToMatch("/" + url + "/**")
                 .packagesToScan(BASE_PACKAGE + ".comment")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi heartApi() {
+        final String url = "hearts";
+        return GroupedOpenApi.builder()
+                .group(url)
+                .pathsToMatch("/" + url + "/**")
+                .packagesToScan(BASE_PACKAGE + ".heart")
                 .build();
     }
 
