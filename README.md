@@ -102,6 +102,7 @@
 |          | API Docs            | OpenAPI(Swagger)        | 3.0.1       |
 |          | API Docs            | Postman                 | \-          |
 | Server   | Server              | AWS EC2                 | -           |
+| Server   | Deploy              | Docker                  | -           |
 </br>
 
 ## 🗂️ 시스템 아키텍처
